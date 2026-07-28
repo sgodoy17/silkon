@@ -1,0 +1,8 @@
+sonar.projectKey=silkon
+sonar.projectName=silkon
+sonar.token=
+sonar.projectVersion=1.0
+sonar.sources=src
+sonar.test.inclusions=**/*.spec.ts
+sonar.exclusions=node_modules/**,src/environments/**,**/*.spec.ts,dist/**,**/docs/**,**/*.js,e2e/**,coverage/**,TLH-distributions/**,src/bsb-theme/css/**
+sonar.javascript.lcov.reportPaths=coverage/lcov.info
