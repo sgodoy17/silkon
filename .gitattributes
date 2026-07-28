@@ -1,0 +1,21 @@
+# Normalize text files to LF
+* text=auto eol=lf
+
+# Treat JSON and lock files as text, but keep exact formatting
+*.json text
+*.lock text
+
+# Ignore formatting changes for Markdown files
+*.md text diff=off
+
+# Binary files (don't diff/convert line endings)
+*.png binary
+*.jpg binary
+*.mp4 binary
+
+# Ensure shell scripts use LF (Unix-style)
+*.sh text eol=lf
+
+# Prevent merge conflicts in package-lock.json
+package-lock.json   -diff -merge
+package-lock.json    linguist-generated=true
