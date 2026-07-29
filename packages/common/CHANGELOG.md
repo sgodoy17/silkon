@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.0
+
+### Minor Changes
+
+- [`1be8040`](https://github.com/sgodoy17/silkon/commit/1be804085bbf0727533295795ec69449269c02f1) Thanks [@sgodoy17](https://github.com/sgodoy17)! - Added enums and constants to the main files
+
 ## 1.0.3
 
 ### Patch Changes
