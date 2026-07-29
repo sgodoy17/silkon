@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.2
+
+### Patch Changes
+
+- Update github action
+
 All notable changes to this project will be documented in this file.
 
 ## [1.0.1](https://github.com/sgodoy17/silkon/releases/tag/v1.0.1) (2026-07-28)
