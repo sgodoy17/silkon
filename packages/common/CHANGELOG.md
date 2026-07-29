@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.3
+
+### Patch Changes
+
+- [`c265d86`](https://github.com/sgodoy17/silkon/commit/c265d865eef0cbb96f93bec2c7ae59d6ea3c0d88) Thanks [@sgodoy17](https://github.com/sgodoy17)! - Add github pipeline for common ci push
+
 ## 1.0.2
 
 ### Patch Changes
