@@ -1,13 +1,13 @@
 {
-  "name": "@silkon/common",
-  "version": "1.0.3",
-  "description": "A progressive Node.js framework for building serverless applications with TypeScript. (@common)",
+  "name": "@silkon/core",
+  "version": "0.0.0",
+  "description": "A progressive Node.js framework for building serverless applications with TypeScript. (@core)",
   "keywords": [
     "framework",
     "serverless",
     "node",
     "typescript",
-    "common"
+    "core"
   ],
   "homepage": "https://github.com/sgodoy17/silkon#readme",
   "bugs": {
@@ -16,7 +16,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sgodoy17/silkon.git",
-    "directory": "packages/common"
+    "directory": "packages/core"
   },
   "license": "MIT",
   "author": "Simon Godoy",
@@ -37,7 +37,10 @@
     "build": "tsc -b tsconfig.build.json"
   },
   "devDependencies": {
-    "@types/node": "^25.8.0"
+    "@silkon/common": "^1.0.3"
+  },
+  "peerDependencies": {
+    "@silkon/common": "^1.0.3"
   },
   "engines": {
     "node": ">= 20"

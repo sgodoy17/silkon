@@ -28,10 +28,11 @@ module.exports = {
       roots: ['<rootDir>/packages/common/src', '<rootDir>/packages/common/test'],
       setupFiles: ['<rootDir>/packages/common/test/mocks/env.mock.ts'],
     },
-    // {
-    //   ...baseProject,
-    //   displayName: '@silkon/core',
-    //   roots: ['<rootDir>/packages/core/src'],
-    // },
+    {
+      ...baseProject,
+      displayName: '@silkon/core',
+      roots: ['<rootDir>/packages/core/src', '<rootDir>/packages/core/test'],
+      setupFiles: ['<rootDir>/packages/core/test/mocks/env.mock.ts'],
+    },
   ],
 };

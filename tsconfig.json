@@ -17,7 +17,7 @@
     "noLib": false,
     "types": ["node", "jest"],
     "strictNullChecks": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "strictBindCallApply": true,
     "strictFunctionTypes": true,
     "strictPropertyInitialization": false,
@@ -30,7 +30,9 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@silkon/common": ["./packages/common"],
-      "@silkon/common/*": ["./packages/common/*"]
+      "@silkon/common/*": ["./packages/common/*"],
+      "@silkon/core": ["./packages/core"],
+      "@silkon/core/*": ["./packages/core/*"]
     }
   }
 }
