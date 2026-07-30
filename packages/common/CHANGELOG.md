@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.0
+
+### Minor Changes
+
+- [#7](https://github.com/sgodoy17/silkon/pull/7) [`7a4dda9`](https://github.com/sgodoy17/silkon/commit/7a4dda98507560207a27601e52d6a099f8565230) Thanks [@sgodoy17](https://github.com/sgodoy17)! - Add event type enum and some interfaces
+
 ## 1.1.0
 
 ### Minor Changes
