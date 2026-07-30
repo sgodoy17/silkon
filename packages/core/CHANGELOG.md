@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.0
+
+### Minor Changes
+
+- [#4](https://github.com/sgodoy17/silkon/pull/4) [`b5c6782`](https://github.com/sgodoy17/silkon/commit/b5c67827426ac07e1aa54f4097f5a6245ffe07fb) Thanks [@sgodoy17](https://github.com/sgodoy17)! - Updated di container interfaces
+
 ## 1.0.0
 
 ### Patch Changes
