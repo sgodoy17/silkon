@@ -1,6 +1,6 @@
 {
   "name": "@silkon/core",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "description": "A progressive Node.js framework for building serverless applications with TypeScript. (@core)",
   "keywords": [
     "framework",
@@ -37,10 +37,10 @@
     "build": "tsc -b tsconfig.build.json"
   },
   "devDependencies": {
-    "@silkon/common": "^2.0.1"
+    "@silkon/common": "^2.1.0"
   },
   "peerDependencies": {
-    "@silkon/common": "^2.0.1"
+    "@silkon/common": "^2.1.0"
   },
   "engines": {
     "node": ">= 20"

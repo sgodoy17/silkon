@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.0
+
+### Minor Changes
+
+- [#11](https://github.com/sgodoy17/silkon/pull/11) [`69ab830`](https://github.com/sgodoy17/silkon/commit/69ab83057e15e4b94d72d2ad305875f4e6f9a472) Thanks [@sgodoy17](https://github.com/sgodoy17)! - Add enum and update handler interface
+
 ## 2.0.1
 
 ### Major Changes
