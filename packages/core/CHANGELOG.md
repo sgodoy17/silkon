@@ -9,7 +9,7 @@
 ### Patch Changes
 
 - Updated dependencies [[`021c72f`](https://github.com/sgodoy17/silkon/commit/021c72f7d52dc62514f18cb028bc4fdc440cd3d9)]:
-  - @silkon/common@2.0.0
+  - @silkon/common@2.0.1
 
 ## 2.0.0
 
