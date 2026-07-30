@@ -20,7 +20,7 @@
   },
   "license": "MIT",
   "author": "Simon Godoy",
-  "type": "module",
+  "type": "commonjs",
   "exports": {
     ".": {
       "import": "./dist/index.js",
