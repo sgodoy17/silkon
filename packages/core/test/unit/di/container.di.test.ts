@@ -59,7 +59,7 @@ describe('Container', () => {
     container.register('factory', {
       useFactory: (prefix: string) => `${prefix}-provider`,
       deps: ['prefix'],
-    } as Provider);
+    });
 
     expect(container.resolve<string>('factory')).toBe('core-provider');
   });
@@ -96,7 +96,7 @@ describe('Container', () => {
       lifetime: Lifetime.SINGLETON,
       useFactory: (dependency: string) => dependency,
       deps: ['dependency'],
-    } as Provider);
+    });
 
     expect(() => container.resolve('service')).toThrow(
       'Invalid DI: singleton "service" cannot depend on transient "dependency".',

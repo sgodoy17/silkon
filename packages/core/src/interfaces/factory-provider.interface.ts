@@ -1,8 +1,6 @@
 import { BaseProviderInterface } from './base-provider.interface';
 
-export interface FactoryProviderInterface<
-  TArgs extends unknown[] = unknown[],
-> extends BaseProviderInterface {
-  useFactory: (...args: TArgs) => unknown;
+export interface FactoryProviderInterface extends BaseProviderInterface {
+  useFactory: (...args: any[]) => unknown;
   deps?: string[];
 }
