@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.1
+
+### Major Changes
+
+- [#9](https://github.com/sgodoy17/silkon/pull/9) [`021c72f`](https://github.com/sgodoy17/silkon/commit/021c72f7d52dc62514f18cb028bc4fdc440cd3d9) Thanks [@sgodoy17](https://github.com/sgodoy17)! - Added request type enum and fixed a problem with package type
+
 ## 1.2.0
 
 ### Minor Changes
