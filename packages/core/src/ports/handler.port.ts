@@ -8,8 +8,8 @@ import {
 } from 'aws-lambda';
 
 export interface HandlerPort {
-  execute(
+  execute<T = APIGatewayProxyResult | LambdaFunctionURLResult | SQSBatchResponse>(
     requestId: string,
     event: APIGatewayProxyEvent | LambdaFunctionURLEvent | SQSEvent,
-  ): Promise<APIGatewayProxyResult | LambdaFunctionURLResult | SQSBatchResponse>;
+  ): Promise<T>;
 }
