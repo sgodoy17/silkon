@@ -41,7 +41,7 @@
     "@types/aws-lambda": "^8.10.162"
   },
   "peerDependencies": {
-    "@silkon/common": "^2.0.0"
+    "@silkon/common": "^2.0.1"
   },
   "engines": {
     "node": ">= 20"
