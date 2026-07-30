@@ -6,7 +6,7 @@ const baseProject = {
   moduleFileExtensions: ['js', 'json', 'ts'],
   testRegex: '.*\\.(spec|test)\\.ts$',
   transform: {
-    '^.+\\.(t|j)s$': 'ts-jest',
+    '^.+\\.ts$': 'ts-jest',
   },
   testEnvironment: 'node',
   moduleNameMapper: compilerOptions.paths
