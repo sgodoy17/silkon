@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.0.0
+
+### Minor Changes
+
+- [#13](https://github.com/sgodoy17/silkon/pull/13) [`5286627`](https://github.com/sgodoy17/silkon/commit/52866278e57c49da42f052b819a7884cdef7c0c3) Thanks [@sgodoy17](https://github.com/sgodoy17)! - Add query option type to core module
+
+### Patch Changes
+
+- Updated dependencies [[`5286627`](https://github.com/sgodoy17/silkon/commit/52866278e57c49da42f052b819a7884cdef7c0c3)]:
+  - @silkon/common@2.2.0
+
 ## 2.1.0
 
 ### Minor Changes
