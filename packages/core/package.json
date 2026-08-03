@@ -36,6 +36,9 @@
   "scripts": {
     "build": "tsc -b tsconfig.build.json"
   },
+  "dependencies": {
+    "xml2js": "^0.6.2"
+  },
   "devDependencies": {
     "@silkon/common": "^2.2.0"
   },
