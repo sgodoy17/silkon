@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.3.0
+
+### Minor Changes
+
+- [#15](https://github.com/sgodoy17/silkon/pull/15) [`c8e02ef`](https://github.com/sgodoy17/silkon/commit/c8e02ef8746e94b84444b8dd475a853f58dc941f) Thanks [@sgodoy17](https://github.com/sgodoy17)! - Added soap helper, updated object helper and added status enum
+
+### Patch Changes
+
+- Updated dependencies [[`c8e02ef`](https://github.com/sgodoy17/silkon/commit/c8e02ef8746e94b84444b8dd475a853f58dc941f)]:
+  - @silkon/common@2.3.0
+
 ## 2.2.0
 
 ### Minor Changes
