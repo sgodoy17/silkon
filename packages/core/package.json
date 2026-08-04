@@ -1,6 +1,6 @@
 {
   "name": "@silkon/core",
-  "version": "3.0.0",
+  "version": "2.4.0",
   "description": "A progressive Node.js framework for building serverless applications with TypeScript. (@core)",
   "keywords": [
     "framework",
