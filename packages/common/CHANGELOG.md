@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.4.0
+
+### Minor Changes
+
+- [#17](https://github.com/sgodoy17/silkon/pull/17) [`9354ce7`](https://github.com/sgodoy17/silkon/commit/9354ce758fe2e5d6808fc89a619d19fcd3a76ca0) Thanks [@sgodoy17](https://github.com/sgodoy17)! - Update common utils and core ports
+
 ## 2.3.0
 
 ### Minor Changes
