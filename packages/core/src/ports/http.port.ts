@@ -1,5 +1,7 @@
-import { GenericPayload } from '@silkon/common';
+import { GenericPayload, Method } from '@silkon/common';
 
 export interface HttpPort {
-  invoke(data: unknown, metadata: GenericPayload): Promise<GenericPayload>;
+  invoke(method: Method, data: unknown, options: unknown): Promise<GenericPayload>;
+
+  invoke(url: string, method: Method, data: unknown, options: unknown): Promise<GenericPayload>;
 }
