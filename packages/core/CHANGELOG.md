@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.0.0
+
+### Minor Changes
+
+- [#19](https://github.com/sgodoy17/silkon/pull/19) [`11a2344`](https://github.com/sgodoy17/silkon/commit/11a2344e66736750363c86e7cf72f5bb271e671f) Thanks [@sgodoy17](https://github.com/sgodoy17)! - Updated some core files
+
+### Patch Changes
+
+- Updated dependencies [[`11a2344`](https://github.com/sgodoy17/silkon/commit/11a2344e66736750363c86e7cf72f5bb271e671f)]:
+  - @silkon/common@2.5.0
+
 ## 2.4.0
 
 ### Minor Changes
