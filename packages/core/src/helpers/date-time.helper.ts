@@ -31,43 +31,30 @@ export class DateTimeHelper {
     return Math.floor((endDate.getTime() - startDate.getTime()) / 1000);
   }
 
-  public static expiration(
-    ttl: number,
-    unit: TtlUnit = 'seconds',
-    country: Country = Country.CL,
-  ): Date {
-    const from = this.parseInTimeZone(this.now(country));
+  public static expiration(ttl: number, unit: TtlUnit = 'seconds'): Date {
+    const from = new Date();
 
     switch (unit) {
-      case 'seconds': {
+      case 'seconds':
         return new Date(from.getTime() + ttl * 1000);
-      }
-      case 'minutes': {
+      case 'minutes':
         return new Date(from.getTime() + ttl * 60 * 1000);
-      }
-      case 'hours': {
+      case 'hours':
         return new Date(from.getTime() + ttl * 60 * 60 * 1000);
-      }
-      case 'days': {
+      case 'days':
         return new Date(from.getTime() + ttl * 24 * 60 * 60 * 1000);
-      }
       case 'months': {
-        const date = new Date(from);
+        from.setUTCMonth(from.getUTCMonth() + ttl);
 
-        date.setMonth(date.getMonth() + ttl);
-
-        return date;
+        return from;
       }
       case 'years': {
-        const date = new Date(from);
+        from.setUTCFullYear(from.getUTCFullYear() + ttl);
 
-        date.setFullYear(date.getFullYear() + ttl);
-
-        return date;
+        return from;
       }
-      default: {
+      default:
         throw new Error(`Unsupported TTL unit: ${String(unit)}`);
-      }
     }
   }
 
