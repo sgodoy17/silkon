@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.6.2
+
+### Patch Changes
+
+- [#25](https://github.com/sgodoy17/silkon/pull/25) [`04c2e34`](https://github.com/sgodoy17/silkon/commit/04c2e34340cb8434c9f590e3951cc39f1ae33dae) Thanks [@sgodoy17](https://github.com/sgodoy17)! - Update expiration method on date time helper
+
+- Updated dependencies [[`04c2e34`](https://github.com/sgodoy17/silkon/commit/04c2e34340cb8434c9f590e3951cc39f1ae33dae)]:
+  - @silkon/common@2.6.2
+
 ## 2.6.1
 
 ### Patch Changes
