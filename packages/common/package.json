@@ -1,6 +1,6 @@
 {
   "name": "@silkon/common",
-  "version": "2.6.0",
+  "version": "2.6.1",
   "description": "A progressive Node.js framework for building serverless applications with TypeScript. (@common)",
   "keywords": [
     "framework",

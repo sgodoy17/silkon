@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.6.1
+
+### Patch Changes
+
+- [#23](https://github.com/sgodoy17/silkon/pull/23) [`00ad8a4`](https://github.com/sgodoy17/silkon/commit/00ad8a4dbd5e5d6f850ffa7f4122987aaa20dd5b) Thanks [@sgodoy17](https://github.com/sgodoy17)! - Export common messages
+
 ## 2.6.0
 
 ### Minor Changes
