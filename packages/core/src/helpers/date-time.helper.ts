@@ -1,7 +1,9 @@
 import { Country, Locale, Timezone } from '@silkon/common';
 
+import { TtlUnit } from '../types';
+
 export class DateTimeHelper {
-  public static now(country: Country): string {
+  public static now(country: Country = Country.CL): string {
     const date = new Date();
 
     const parts = new Intl.DateTimeFormat(Locale[country], {
@@ -22,35 +24,59 @@ export class DateTimeHelper {
     return `${map.year}-${map.month}-${map.day}T${map.hour}:${map.minute}:${map.second}${offset}`;
   }
 
-  public static getDiff(country: Country, start: string, end: string): number {
-    const startDate = this.parseInTimeZone(start, country);
-    const endDate = this.parseInTimeZone(end, country);
+  public static getDiff(start: string, end: string): number {
+    const startDate = this.parseInTimeZone(start);
+    const endDate = this.parseInTimeZone(end);
 
     return Math.floor((endDate.getTime() - startDate.getTime()) / 1000);
   }
 
-  private static parseInTimeZone(value: string, country: Country): Date {
+  public static expiration(
+    ttl: number,
+    unit: TtlUnit = 'seconds',
+    country: Country = Country.CL,
+  ): Date {
+    const from = this.parseInTimeZone(this.now(country));
+
+    switch (unit) {
+      case 'seconds': {
+        return new Date(from.getTime() + ttl * 1000);
+      }
+      case 'minutes': {
+        return new Date(from.getTime() + ttl * 60 * 1000);
+      }
+      case 'hours': {
+        return new Date(from.getTime() + ttl * 60 * 60 * 1000);
+      }
+      case 'days': {
+        return new Date(from.getTime() + ttl * 24 * 60 * 60 * 1000);
+      }
+      case 'months': {
+        const date = new Date(from);
+
+        date.setMonth(date.getMonth() + ttl);
+
+        return date;
+      }
+      case 'years': {
+        const date = new Date(from);
+
+        date.setFullYear(date.getFullYear() + ttl);
+
+        return date;
+      }
+      default: {
+        throw new Error(`Unsupported TTL unit: ${String(unit)}`);
+      }
+    }
+  }
+
+  private static parseInTimeZone(value: string): Date {
     const [date, offset] = value.split('T');
     const [time] = offset.split('-');
     const [year, month, day] = date.split('-').map(Number);
     const [hour, minute, second] = time.split(':').map(Number);
-    const utcDate = new Date(Date.UTC(year, month - 1, day, hour, minute, second));
 
-    const formatter = new Intl.DateTimeFormat(Locale[country], {
-      timeZone: Timezone[country],
-      hour12: false,
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      timeZoneName: 'longOffset',
-    });
-
-    const parts = formatter.formatToParts(utcDate);
-    const map = Object.fromEntries(parts.map(p => [p.type, p.value]));
-
-    return new Date(`${map.year}-${map.month}-${map.day}T${map.hour}:${map.minute}:${map.second}Z`);
+    return new Date(Date.UTC(year, month - 1, day, hour, minute, second));
   }
 }
