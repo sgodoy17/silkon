@@ -64,10 +64,6 @@ export class ObjectHelper {
       if (Array.isArray(value)) {
         return value as T;
       }
-
-      if (([] as unknown as T) instanceof Array) {
-        return [value] as unknown as T;
-      }
     }
 
     return value as T;
