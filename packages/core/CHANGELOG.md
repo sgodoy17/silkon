@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.0.0
+## 2.6.0
 
 ### Minor Changes
 
