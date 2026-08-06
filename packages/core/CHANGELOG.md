@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.6.0
+
+### Minor Changes
+
+- [#21](https://github.com/sgodoy17/silkon/pull/21) [`0113b25`](https://github.com/sgodoy17/silkon/commit/0113b25ee421f6db19e94f2a2c4bc0169512d1f1) Thanks [@sgodoy17](https://github.com/sgodoy17)! - Update common and core packages to add messages and expiration date
+
+### Patch Changes
+
+- Updated dependencies [[`0113b25`](https://github.com/sgodoy17/silkon/commit/0113b25ee421f6db19e94f2a2c4bc0169512d1f1)]:
+  - @silkon/common@2.6.0
+
 ## 2.5.0
 
 ### Minor Changes
