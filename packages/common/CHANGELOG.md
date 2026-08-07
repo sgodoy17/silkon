@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.6.3
+
+### Patch Changes
+
+- [#27](https://github.com/sgodoy17/silkon/pull/27) [`e5e96b2`](https://github.com/sgodoy17/silkon/commit/e5e96b2c79e9598c0cae62ad91f2013ae4c54e34) Thanks [@sgodoy17](https://github.com/sgodoy17)! - Remove cast form core object helper
+
 ## 2.6.2
 
 ### Patch Changes
