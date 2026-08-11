@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.0.0
+
+### Minor Changes
+
+- [#29](https://github.com/sgodoy17/silkon/pull/29) [`63e32d1`](https://github.com/sgodoy17/silkon/commit/63e32d11d2407d22cce9e8d3206d4348fef997d3) Thanks [@sgodoy17](https://github.com/sgodoy17)! - Add an array helper to the core module
+
+### Patch Changes
+
+- Updated dependencies [[`63e32d1`](https://github.com/sgodoy17/silkon/commit/63e32d11d2407d22cce9e8d3206d4348fef997d3)]:
+  - @silkon/common@2.7.0
+
 ## 2.6.3
 
 ### Patch Changes
