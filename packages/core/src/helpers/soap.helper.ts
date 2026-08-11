@@ -1,5 +1,6 @@
-import { ObjectHelper } from '@silkon/core';
 import { parseString } from 'xml2js';
+
+import { ObjectHelper } from './object.helper';
 
 export class SoapHelper {
   public static isSoapFaultError(error: unknown): boolean {
