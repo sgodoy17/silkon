@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.8.0
+
+### Minor Changes
+
+- [#31](https://github.com/sgodoy17/silkon/pull/31) [`9013ff6`](https://github.com/sgodoy17/silkon/commit/9013ff6907e055cc0d9fe358b41f964fc7b44390) Thanks [@sgodoy17](https://github.com/sgodoy17)! - Added string utils to common and string helper to core packages
+
+### Patch Changes
+
+- Updated dependencies [[`9013ff6`](https://github.com/sgodoy17/silkon/commit/9013ff6907e055cc0d9fe358b41f964fc7b44390)]:
+  - @silkon/common@2.8.0
+
 ## 2.7.0
 
 ### Minor Changes
