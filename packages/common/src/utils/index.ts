@@ -1,3 +1,4 @@
+export * from './clean-xml.util';
 export * from './is-array.util';
 export * from './is-boolean.util';
 export * from './is-empty.util';
@@ -7,3 +8,5 @@ export * from './is-number.util';
 export * from './is-object.util';
 export * from './is-string.util';
 export * from './is-undefined.util';
+export * from './normalize-document.util';
+export * from './sanitize-document.util';
