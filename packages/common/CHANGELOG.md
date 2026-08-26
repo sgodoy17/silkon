@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.8.1
+
+### Patch Changes
+
+- [#33](https://github.com/sgodoy17/silkon/pull/33) [`28c42e3`](https://github.com/sgodoy17/silkon/commit/28c42e3d1971a942f63dbeef14795c299a6622ab) Thanks [@sgodoy17](https://github.com/sgodoy17)! - Change some types
+
 ## 2.8.0
 
 ### Minor Changes
