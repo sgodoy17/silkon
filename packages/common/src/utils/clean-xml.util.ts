@@ -1,6 +1,6 @@
 import { isString } from './is-string.util';
 
-export const cleanXml = (input: string) => {
+export const cleanXml = (input: unknown) => {
   const text = isString(input) ? input : JSON.stringify(input);
 
   return text

@@ -152,13 +152,13 @@ describe('common utils', () => {
 
   it('stringifies non-string input before cleaning', () => {
     const input = { a: 1, b: 'test' };
-    const result = cleanXml(input as unknown as string);
+    const result = cleanXml(input);
 
     expect(result).toBe('{"a":1,"b":"test"}');
   });
 
   it('stringifies a number input before cleaning', () => {
-    const result = cleanXml(123 as unknown as string);
+    const result = cleanXml(123);
 
     expect(result).toBe('123');
   });

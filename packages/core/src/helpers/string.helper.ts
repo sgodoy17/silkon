@@ -1,8 +1,7 @@
+import { StringOption } from '../types';
+
 export class StringHelper {
-  public static sanitize(
-    input: string,
-    options: { stripHtml?: boolean; alphanumericOnly?: boolean; collapseWhitespace?: boolean },
-  ): string {
+  public static sanitize(input: string, options: StringOption): string {
     const { stripHtml = true, alphanumericOnly = false, collapseWhitespace = true } = options;
 
     if (!input) {
