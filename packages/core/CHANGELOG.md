@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.10.1
+
+### Patch Changes
+
+- [#39](https://github.com/sgodoy17/silkon/pull/39) [`2211ff3`](https://github.com/sgodoy17/silkon/commit/2211ff3840f620e6c99d1864f4a6da92ab191cf5) Thanks [@sgodoy17](https://github.com/sgodoy17)! - Update logger port
+- Updated dependencies [[`2211ff3`](https://github.com/sgodoy17/silkon/commit/2211ff3840f620e6c99d1864f4a6da92ab191cf5)]:
+  - @silkon/common@2.10.1
+
 ## 2.10.0
 
 ### Minor Changes
