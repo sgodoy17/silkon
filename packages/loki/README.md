@@ -55,6 +55,7 @@ await logger.flush();
 - `logger.warn(context, message, ...params)`
 - `logger.error(context, message, ...params)`
 - `logger.fatal(context, message, ...params)`
+- `logger.setId(requestId)` — Sets the request identifier (`rid`) on the logger instance to correlate all subsequent log entries.
 - `logger.flush()` — Sends all buffered log streams to the Loki `/loki/api/v1/push` endpoint.
 
 ## Configuration Options
@@ -98,6 +99,31 @@ logger.info('AuthService', 'User user@example.com authenticated', {
 });
 ```
 
+## Request Tracing
+
+To maximize observability and correlate logs across distributed services or serverless invocations, assign a request identifier to the logger instance using `setId`:
+
+```typescript
+import { loki } from '@silkon/loki';
+
+const logger = loki({
+  url: 'http://localhost:3100',
+  name: 'order-service',
+  stage: 'production',
+});
+
+// Set the request identifier for the current execution context
+logger.setId('req-9b57-61ef1089a8ef');
+
+logger.info('OrderController', 'Processing order payment', { orderId: 1042 });
+```
+
+Each log line emitted to standard output (`stdout`) and batched into Loki stream payloads includes the `rid` property:
+
+```json
+{"level":30,"time":1792510262382,"pid":18731,"rid":"req-9b57-61ef1089a8ef","hostname":"app-server","context":"OrderController","msg":"Processing order payment","params":[{"orderId":1042}]}
+```
+
 ## Public API
 
 The package root re-exports:
@@ -108,7 +134,7 @@ The package root re-exports:
 - **Constants**: `LogLevel`
 - **Mappers**: `LokiMapper`
 - **Processors**: `MaskProcessor`
-- **Types**: `LokiSetting`, `LokiEntry`, `LokiStream`, `MaskOption`, `MaskField`
+- **Types**: `LokiSetting`, `LokiStream`, `MaskOption`, `MaskField`
 
 ## Build
 

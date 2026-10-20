@@ -13,5 +13,7 @@ export interface LoggerPort {
 
   fatal?(message: string, ...optionalParams: GenericPayload[]): void;
 
+  setId(requestId: string): void;
+
   flush(): Promise<void>;
 }
