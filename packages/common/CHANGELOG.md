@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.10.0
+
+### Minor Changes
+
+- [#37](https://github.com/sgodoy17/silkon/pull/37) [`0a5b727`](https://github.com/sgodoy17/silkon/commit/0a5b7270ac01c848c945e8ef327b445186f8b0a6) Thanks [@sgodoy17](https://github.com/sgodoy17)! - Add request id to loki logger
+
 ## 2.9.0
 
 ### Minor Changes
