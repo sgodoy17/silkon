@@ -3,6 +3,7 @@
   "files": [],
   "references": [
     { "path": "packages/common/tsconfig.build.json" },
-    { "path": "packages/core/tsconfig.build.json" }
+    { "path": "packages/core/tsconfig.build.json" },
+    { "path": "packages/loki/tsconfig.build.json"}
   ]
 }

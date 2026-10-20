@@ -29,6 +29,7 @@ cd packages/{package-name} && npm run build
 
 - `packages/common`: shared code published as `@silkon/common`
 - `packages/core`: shared code published as `@silkon/core`
+- `packages/loki`: shared code published as `@silkon/loki`
 - `tsconfig*.json`: TypeScript project references for the workspace
 - `jest.config.js`: test runner configuration
 - `eslint.config.mjs`: lint configuration

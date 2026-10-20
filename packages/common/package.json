@@ -36,9 +36,6 @@
   "scripts": {
     "build": "tsc -b tsconfig.build.json"
   },
-  "devDependencies": {
-    "@types/node": "^25.8.0"
-  },
   "engines": {
     "node": ">= 20"
   },

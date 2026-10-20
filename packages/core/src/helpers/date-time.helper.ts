@@ -58,6 +58,10 @@ export class DateTimeHelper {
     }
   }
 
+  public static getTimestamp(): string {
+    return String(BigInt(Date.now()) * 1_000_000n + BigInt(process.hrtime()[1]));
+  }
+
   private static parseInTimeZone(value: string): Date {
     const [date, offset] = value.split('T');
     const [time] = offset.split('-');

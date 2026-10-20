@@ -30,7 +30,8 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@silkon/common": ["./packages/common"],
-      "@silkon/core": ["./packages/core"]
+      "@silkon/core": ["./packages/core"],
+      "@silkon/loki": ["./packages/loki"]
     }
   }
 }

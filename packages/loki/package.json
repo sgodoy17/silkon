@@ -1,0 +1,54 @@
+{
+  "name": "@silkon/loki",
+  "version": "2.8.1",
+  "description": "A progressive Node.js framework for building serverless applications with TypeScript. (@loki)",
+  "keywords": [
+    "framework",
+    "serverless",
+    "node",
+    "typescript",
+    "loki"
+  ],
+  "homepage": "https://github.com/sgodoy17/silkon#readme",
+  "bugs": {
+    "url": "https://github.com/sgodoy17/silkon/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sgodoy17/silkon.git",
+    "directory": "packages/loki"
+  },
+  "license": "MIT",
+  "author": "Simon Godoy",
+  "type": "commonjs",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js"
+    }
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -b tsconfig.build.json"
+  },
+  "devDependencies": {
+    "@silkon/common": "^2.8.1",
+    "@silkon/core": "^2.8.1"
+  },
+  "peerDependencies": {
+    "@silkon/common": "^2.8.1",
+    "@silkon/core": "^2.8.1"
+  },
+  "engines": {
+    "node": ">= 20"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}

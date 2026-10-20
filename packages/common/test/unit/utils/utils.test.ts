@@ -2,12 +2,16 @@ import {
   cleanXml,
   isArray,
   isBoolean,
+  isEmpty,
   isError,
   isNil,
   isNumber,
   isObject,
   isString,
   isUndefined,
+  maskEmail,
+  maskString,
+  maskValue,
   normalizeDocument,
   sanitizeDocument,
 } from '../../../src';
@@ -174,5 +178,63 @@ describe('common utils', () => {
     const result = cleanXml(input);
 
     expect(result).toBe(input);
+  });
+
+  it('identifies empty inputs with isEmpty', () => {
+    expect(isEmpty([])).toBe(true);
+    expect(isEmpty([1, 2, 3])).toBe(false);
+    expect(isEmpty(null)).toBe(true);
+    expect(isEmpty(undefined)).toBe(true);
+    expect(isEmpty('')).toBe(true);
+    expect(isEmpty('hello')).toBe(true);
+    expect(isEmpty({})).toBe(true);
+    expect(isEmpty(0)).toBe(true);
+  });
+
+  it('masks emails properly', () => {
+    expect(maskEmail('john.doe@example.com')).toBe('j*******@example.com');
+    expect(maskEmail('a@example.com')).toBe('*@example.com');
+    expect(maskEmail('ab@example.com')).toBe('a*@example.com');
+    expect(maskEmail('@example.com')).toBe('*@example.com');
+    expect(maskEmail('plainstring')).toBe('p*********g');
+  });
+
+  it('masks values with default and custom configurations', () => {
+    expect(maskValue('1234567890', {})).toBe('123****890');
+    expect(maskValue('1234567890', { prefix: 2, suffix: 2 })).toBe('12******90');
+    expect(maskValue('1234567890', { prefix: 4, suffix: 0 })).toBe('1234******');
+    expect(maskValue('1234567890', { prefix: 0, suffix: 4 })).toBe('******7890');
+    expect(maskValue('1234567890', { prefix: 2, suffix: 2, length: 3 })).toBe('12***90');
+    expect(maskValue('1234567890', { prefix: 2, suffix: 2, character: 'default' })).toBe(
+      '12defaultdefaultdefaultdefaultdefaultdefault90',
+    );
+    expect(maskValue('12345', { prefix: 3, suffix: 3 })).toBe('123345');
+    expect(maskValue('test@domain.com', { type: 'email' })).toBe('t***@domain.com');
+  });
+
+  it('masks strings containing targeted fields', () => {
+    const raw = 'user: admin, password: secretPassword, token=123456789, pin - 9876';
+    const masked = maskString(raw, {
+      password: { prefix: 1, suffix: 1 },
+      token: { prefix: 2, suffix: 2 },
+      pin: { prefix: 0, suffix: 0 },
+    });
+
+    expect(masked).toBe('user: admin, password: s************d, token=12*****89, pin - ****');
+  });
+
+  it('masks string fields matching email type config', () => {
+    const raw = 'contact: user@example.com';
+    const masked = maskString(raw, { contact: { type: 'email' } });
+
+    expect(masked).toBe('contact: u***@example.com');
+  });
+
+  it('handles maskString with undefined fields or no matching fields', () => {
+    expect(maskString('no sensitive data here')).toBe('no sensitive data here');
+    expect(maskString('password: secret', undefined)).toBe('password: secret');
+    expect(maskString('PASSWORD: secretPassword', { password: { prefix: 1, suffix: 1 } })).toBe(
+      'PASSWORD: s************d',
+    );
   });
 });
