@@ -17,11 +17,11 @@ export class MaskProcessor {
     }
 
     if (typeof value === 'string') {
-      return maskString(value);
+      return maskString(value, fields);
     }
 
     if (Array.isArray(value)) {
-      return value.map(v => this.walk(v));
+      return value.map(v => this.walk(v, fields));
     }
 
     if (typeof value === 'object') {
@@ -33,7 +33,7 @@ export class MaskProcessor {
         if (config && typeof val === 'string') {
           result[key] = maskValue(val, config);
         } else {
-          result[key] = this.walk(val);
+          result[key] = this.walk(val, fields);
         }
       }
 
