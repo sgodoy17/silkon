@@ -123,24 +123,24 @@ describe('Loki functional tests', () => {
     const infoLog = JSON.parse(stdoutLogs[0].trim()) as {
       level: number;
       context: string;
-      message: string;
+      msg: string;
       params: [{ orderId: number }];
     };
 
     expect(infoLog.level).toBe(LogLevel.info);
     expect(infoLog.context).toBe('OrderController');
-    expect(infoLog.message).toBe('Order created successfully');
+    expect(infoLog.msg).toBe('Order created successfully');
     expect(infoLog.params).toEqual([{ orderId: 1001 }]);
 
-    const warnLog = JSON.parse(stdoutLogs[1].trim()) as { level: number; message: string };
+    const warnLog = JSON.parse(stdoutLogs[1].trim()) as { level: number; msg: string };
 
     expect(warnLog.level).toBe(LogLevel.warn);
-    expect(warnLog.message).toBe('Low inventory warning');
+    expect(warnLog.msg).toBe('Low inventory warning');
 
-    const errorLog = JSON.parse(stdoutLogs[2].trim()) as { level: number; message: string };
+    const errorLog = JSON.parse(stdoutLogs[2].trim()) as { level: number; msg: string };
 
     expect(errorLog.level).toBe(LogLevel.error);
-    expect(errorLog.message).toBe('Payment gateway failed');
+    expect(errorLog.msg).toBe('Payment gateway failed');
 
     await logger.flush();
 
@@ -183,7 +183,7 @@ describe('Loki functional tests', () => {
     expect(JSON.parse(infoStream?.values[0][1] ?? '{}')).toMatchObject({
       level: LogLevel.info,
       context: 'OrderController',
-      message: 'Order created successfully',
+      msg: 'Order created successfully',
     });
 
     const warnStream = streamMap.get('warn');
@@ -296,14 +296,14 @@ describe('Loki functional tests', () => {
     expect(stdoutLogs).toHaveLength(1);
 
     const logged = JSON.parse(stdoutLogs[0].trim()) as {
-      message: string;
+      msg: string;
       params: [
         { email: string; token: string; meta: { unmasked: string; email: string } },
         [string, { email: string }],
       ];
     };
 
-    expect(logged.message).toBe('User email: u***@example.com logged in');
+    expect(logged.msg).toBe('User email: u***@example.com logged in');
     expect(logged.params[0].email).toBe('u***@example.com');
     expect(logged.params[0].token).toBe('se************23');
     expect(logged.params[0].meta.unmasked).toBe('value');
@@ -321,7 +321,7 @@ describe('Loki functional tests', () => {
 
     const streamLog = JSON.parse(payload.streams[0].values[0][1]) as typeof logged;
 
-    expect(streamLog.message).toBe('User email: u***@example.com logged in');
+    expect(streamLog.msg).toBe('User email: u***@example.com logged in');
     expect(streamLog.params[0].email).toBe('u***@example.com');
   });
 
@@ -344,11 +344,11 @@ describe('Loki functional tests', () => {
     expect(stdoutLogs).toHaveLength(1);
 
     const logged = JSON.parse(stdoutLogs[0].trim()) as {
-      message: string;
+      msg: string;
       params: [{ email: string }];
     };
 
-    expect(logged.message).toBe('User user@example.com logged in');
+    expect(logged.msg).toBe('User user@example.com logged in');
     expect(logged.params[0].email).toBe('user@example.com');
 
     await logger.flush();
@@ -375,12 +375,12 @@ describe('Loki functional tests', () => {
 
     const fatalLog = JSON.parse(stdoutLogs[1].trim()) as {
       level: number;
-      message: string;
+      msg: string;
     };
 
     expect(fatalLog.level).toBe(LogLevel.fatal);
-    expect(fatalLog.message).toContain('Got an error when trying to send log to Loki');
-    expect(fatalLog.message).toContain('Loki rejected logs: 400');
+    expect(fatalLog.msg).toContain('Got an error when trying to send log to Loki');
+    expect(fatalLog.msg).toContain('Loki rejected logs: 400');
   });
 
   it('handles connection failures gracefully by writing a fatal error to stdout', async () => {
@@ -399,11 +399,11 @@ describe('Loki functional tests', () => {
 
     const fatalLog = JSON.parse(stdoutLogs[1].trim()) as {
       level: number;
-      message: string;
+      msg: string;
     };
 
     expect(fatalLog.level).toBe(LogLevel.fatal);
-    expect(fatalLog.message).toContain('Got an error when trying to send log to Loki');
+    expect(fatalLog.msg).toContain('Got an error when trying to send log to Loki');
   });
 
   it('handles request timeouts gracefully by writing a fatal error to stdout', async () => {
@@ -424,11 +424,11 @@ describe('Loki functional tests', () => {
 
     const fatalLog = JSON.parse(stdoutLogs[1].trim()) as {
       level: number;
-      message: string;
+      msg: string;
     };
 
     expect(fatalLog.level).toBe(LogLevel.fatal);
-    expect(fatalLog.message).toContain('Got an error when trying to send log to Loki');
+    expect(fatalLog.msg).toContain('Got an error when trying to send log to Loki');
   });
 
   it('handles large payloads over 0.5 MB with adjusted timeout and successful flush', async () => {
@@ -508,5 +508,55 @@ describe('Loki functional tests', () => {
     await service.flush();
 
     expect(postSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it('sets requestId via setId and attaches rid to each log entry and Loki stream value', async () => {
+    const requestId = 'req-trace-uuid-12345';
+    const logger = loki({
+      url: serverUrl,
+      name: 'request-id-service',
+      stage: 'production',
+    });
+
+    logger.setId(requestId);
+
+    logger.info('OrderController', 'Order placed', { orderId: 456 });
+    logger.warn('InventoryController', 'Low stock', { productId: 789 });
+
+    expect(stdoutLogs).toHaveLength(2);
+
+    for (const logStr of stdoutLogs) {
+      const entry = JSON.parse(logStr.trim()) as {
+        rid?: string;
+        context: string;
+        msg: string;
+      };
+
+      expect(entry.rid).toBe(requestId);
+    }
+
+    await logger.flush();
+
+    expect(receivedRequests).toHaveLength(1);
+
+    const payload = JSON.parse(receivedRequests[0].body) as {
+      streams: {
+        stream: Record<string, string>;
+        values: [string, string][];
+      }[];
+    };
+
+    expect(payload.streams).toHaveLength(2);
+
+    for (const item of payload.streams) {
+      for (const [, val] of item.values) {
+        const parsedValue = JSON.parse(val) as {
+          rid?: string;
+          msg: string;
+        };
+
+        expect(parsedValue.rid).toBe(requestId);
+      }
+    }
   });
 });
