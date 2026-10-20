@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.9.0
+
+### Minor Changes
+
+- [#35](https://github.com/sgodoy17/silkon/pull/35) [`521db66`](https://github.com/sgodoy17/silkon/commit/521db6644d43fc2dfabb634b0bc0a81546b6a703) Thanks [@sgodoy17](https://github.com/sgodoy17)! - Added loki logger and some utils
+
 ## 2.8.1
 
 ### Patch Changes
