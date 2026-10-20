@@ -8,5 +8,8 @@ export * from './is-number.util';
 export * from './is-object.util';
 export * from './is-string.util';
 export * from './is-undefined.util';
+export * from './mask-email.util';
+export * from './mask-string.util';
+export * from './mask-value.util';
 export * from './normalize-document.util';
 export * from './sanitize-document.util';

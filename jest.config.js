@@ -34,5 +34,11 @@ module.exports = {
       roots: ['<rootDir>/packages/core/src', '<rootDir>/packages/core/test'],
       setupFiles: ['<rootDir>/packages/core/test/mocks/env.mock.ts'],
     },
+    {
+      ...baseProject,
+      displayName: '@silkon/loki',
+      roots: ['<rootDir>/packages/loki/src', '<rootDir>/packages/loki/test'],
+      setupFiles: ['<rootDir>/packages/loki/test/mocks/env.mock.ts'],
+    },
   ],
 };
