@@ -512,13 +512,15 @@ describe('Loki functional tests', () => {
 
   it('sets requestId via setId and attaches rid to each log entry and Loki stream value', async () => {
     const requestId = 'req-trace-uuid-12345';
+    const messageId = 'msg-trace-uuid-12345';
     const logger = loki({
       url: serverUrl,
       name: 'request-id-service',
       stage: 'production',
     });
 
-    logger.setId(requestId);
+    logger.setRequestId(requestId);
+    logger.setMessageId(messageId);
 
     logger.info('OrderController', 'Order placed', { orderId: 456 });
     logger.warn('InventoryController', 'Low stock', { productId: 789 });
@@ -528,11 +530,13 @@ describe('Loki functional tests', () => {
     for (const logStr of stdoutLogs) {
       const entry = JSON.parse(logStr.trim()) as {
         rid?: string;
+        mid?: string;
         context: string;
         msg: string;
       };
 
       expect(entry.rid).toBe(requestId);
+      expect(entry.mid).toBe(messageId);
     }
 
     await logger.flush();
