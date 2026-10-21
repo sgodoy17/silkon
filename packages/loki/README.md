@@ -113,7 +113,10 @@ const logger = loki({
 });
 
 // Set the request identifier for the current execution context
-logger.setId('req-9b57-61ef1089a8ef');
+logger.setRequestId('req-9b57-61ef1089a8ef');
+
+// Set the message identifier for the current execution context
+logger.setMessageId('msg-9b57-61ef1089a8ef');
 
 logger.info('OrderController', 'Processing order payment', { orderId: 1042 });
 ```
@@ -121,7 +124,7 @@ logger.info('OrderController', 'Processing order payment', { orderId: 1042 });
 Each log line emitted to standard output (`stdout`) and batched into Loki stream payloads includes the `rid` property:
 
 ```json
-{"level":30,"time":1792510262382,"pid":18731,"rid":"req-9b57-61ef1089a8ef","hostname":"app-server","context":"OrderController","msg":"Processing order payment","params":[{"orderId":1042}]}
+{"level":30,"time":1792510262382,"pid":18731,"rid":"req-9b57-61ef1089a8ef","mid":"msg-9b57-61ef1089a8ef","hostname":"app-server","context":"OrderController","msg":"Processing order payment","params":[{"orderId":1042}]}
 ```
 
 ## Public API
