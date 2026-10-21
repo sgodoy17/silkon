@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.10.2
+
+### Patch Changes
+
+- [#41](https://github.com/sgodoy17/silkon/pull/41) [`69cf4c3`](https://github.com/sgodoy17/silkon/commit/69cf4c37db8d57251fc6263f85765c1abd61f303) Thanks [@sgodoy17](https://github.com/sgodoy17)! - Add message id to loki logger
+- Updated dependencies [[`69cf4c3`](https://github.com/sgodoy17/silkon/commit/69cf4c37db8d57251fc6263f85765c1abd61f303)]:
+  - @silkon/common@2.10.2
+  - @silkon/core@2.10.2
+
 ## 2.10.1
 
 ### Patch Changes
