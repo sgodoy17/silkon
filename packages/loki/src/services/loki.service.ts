@@ -7,6 +7,7 @@ import { Level, LokiSetting, LokiStream } from '../types';
 
 export class LokiService {
   private requestId: string;
+  private messageId: string;
   private streams: Record<string, LokiStream> = {};
 
   constructor(
@@ -38,8 +39,12 @@ export class LokiService {
     this.entry('fatal', context, message, optionalParams);
   }
 
-  public setId(requestId: string): void {
+  public setRequestId(requestId: string): void {
     this.requestId = requestId;
+  }
+
+  public setMessageId(messageId: string): void {
+    this.messageId = messageId;
   }
 
   public async flush(): Promise<void> {
@@ -69,7 +74,7 @@ export class LokiService {
       const message = `Got an error when trying to send log to Loki, error output: ${JSON.stringify(ErrorHelper.serialize(error))}`;
 
       process.stdout.write(
-        `${JSON.stringify(LokiMapper.map(this.requestId, 'fatal', '', message))}\n`,
+        `${JSON.stringify(LokiMapper.map(this.requestId, this.messageId, 'fatal', '', message))}\n`,
       );
     }
   }
@@ -80,6 +85,7 @@ export class LokiService {
     const content = JSON.stringify(
       LokiMapper.map(
         this.requestId,
+        this.messageId,
         level,
         context,
         MaskProcessor.mask(message, options),
