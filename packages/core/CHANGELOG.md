@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.10.4
+
+### Patch Changes
+
+- [#45](https://github.com/sgodoy17/silkon/pull/45) [`9b9722c`](https://github.com/sgodoy17/silkon/commit/9b9722cbe42fce80b02cf26114db8e645d7a7fdd) Thanks [@sgodoy17](https://github.com/sgodoy17)! - Update expiration date generation
+- Updated dependencies [[`9b9722c`](https://github.com/sgodoy17/silkon/commit/9b9722cbe42fce80b02cf26114db8e645d7a7fdd)]:
+  - @silkon/common@2.10.4
+
 ## 2.10.3
 
 ### Patch Changes
