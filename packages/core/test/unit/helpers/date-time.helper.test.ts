@@ -74,6 +74,14 @@ describe('DateTimeHelper', () => {
     expect(DateTimeHelper.expiration(ttl, unit).toISOString()).toBe(expected);
   });
 
+  it('should set the fixed date at 7:15', () => {
+    jest.setSystemTime(new Date('2026-08-05T12:00:00.000Z'));
+
+    expect(DateTimeHelper.expiration(1, 'days', true).toISOString()).toBe(
+      '2026-08-06T07:15:00.000Z',
+    );
+  });
+
   it('throws for unsupported ttl units', () => {
     expect(() => DateTimeHelper.expiration(1, 'centuries' as never)).toThrow(
       'Unsupported TTL unit: centuries',

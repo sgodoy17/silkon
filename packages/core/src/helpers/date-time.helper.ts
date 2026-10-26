@@ -31,8 +31,12 @@ export class DateTimeHelper {
     return Math.floor((endDate.getTime() - startDate.getTime()) / 1000);
   }
 
-  public static expiration(ttl: number, unit: TtlUnit = 'seconds'): Date {
+  public static expiration(ttl: number, unit: TtlUnit = 'seconds', fixed: boolean = false): Date {
     const from = new Date();
+
+    if (fixed) {
+      from.setUTCHours(7, 15, 0, 0);
+    }
 
     switch (unit) {
       case 'seconds':
