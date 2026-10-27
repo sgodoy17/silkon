@@ -87,4 +87,8 @@ describe('DateTimeHelper', () => {
       'Unsupported TTL unit: centuries',
     );
   });
+
+  it('formats a UTC instant in a fixed-offset zone', () => {
+    expect(DateTimeHelper.offset('2026-05-09 13:42:07')).toBe('2026-05-09T13:42:07-04:00');
+  });
 });
