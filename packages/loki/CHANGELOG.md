@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.10.5
+
+### Patch Changes
+
+- [#47](https://github.com/sgodoy17/silkon/pull/47) [`c983338`](https://github.com/sgodoy17/silkon/commit/c983338c426a43c2a065af776542464723306f17) Thanks [@sgodoy17](https://github.com/sgodoy17)! - Add offeset method to date time helper
+- Updated dependencies [[`c983338`](https://github.com/sgodoy17/silkon/commit/c983338c426a43c2a065af776542464723306f17)]:
+  - @silkon/common@2.10.5
+  - @silkon/core@2.10.5
+
 ## 2.10.4
 
 ### Patch Changes
