@@ -34,10 +34,6 @@ export class DateTimeHelper {
   public static expiration(ttl: number, unit: TtlUnit = 'seconds', fixed: boolean = false): Date {
     const from = new Date();
 
-    if (fixed) {
-      from.setUTCHours(7, 15, 0, 0);
-    }
-
     switch (unit) {
       case 'seconds':
         return new Date(from.getTime() + ttl * 1000);
@@ -46,20 +42,28 @@ export class DateTimeHelper {
       case 'hours':
         return new Date(from.getTime() + ttl * 60 * 60 * 1000);
       case 'days':
-        return new Date(from.getTime() + ttl * 24 * 60 * 60 * 1000);
+        from.setUTCDate(from.getUTCDate() + ttl);
+
+        break;
       case 'months': {
         from.setUTCMonth(from.getUTCMonth() + ttl);
 
-        return from;
+        break;
       }
       case 'years': {
         from.setUTCFullYear(from.getUTCFullYear() + ttl);
 
-        return from;
+        break;
       }
       default:
         throw new Error(`Unsupported TTL unit: ${String(unit)}`);
     }
+
+    if (fixed) {
+      from.setUTCHours(7, 15, 0, 0);
+    }
+
+    return from;
   }
 
   public static getTimestamp(): string {
@@ -73,5 +77,35 @@ export class DateTimeHelper {
     const [hour, minute, second] = time.split(':').map(Number);
 
     return new Date(Date.UTC(year, month - 1, day, hour, minute, second));
+  }
+
+  public static offset(input: string | number | Date, country: Country = Country.CL): string {
+    const date = input instanceof Date ? input : new Date(input);
+
+    if (Number.isNaN(date.getTime())) {
+      throw new Error(`Invalid date: ${String(input)}`);
+    }
+
+    const parts = new Intl.DateTimeFormat(Locale[country], {
+      timeZone: Timezone[country],
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false,
+      timeZoneName: 'longOffset',
+    }).formatToParts(date);
+
+    const map: Record<string, string> = {};
+
+    for (const part of parts) {
+      map[part.type] = part.value;
+    }
+
+    const offset = map.timeZoneName.replace('GMT', '') || '+00:00';
+
+    return `${map.year}-${map.month}-${map.day}T${map.hour}:${map.minute}:${map.second}${offset}`;
   }
 }
