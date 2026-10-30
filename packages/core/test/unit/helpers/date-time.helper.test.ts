@@ -1,5 +1,4 @@
 import { Country } from '@silkon/common';
-
 import { DateTimeHelper } from '../../../src';
 
 describe('DateTimeHelper', () => {
@@ -75,11 +74,23 @@ describe('DateTimeHelper', () => {
   });
 
   it('should set the fixed date at 7:15', () => {
-    jest.setSystemTime(new Date('2026-08-05T12:00:00.000Z'));
+    jest.setSystemTime(new Date('2026-08-05T20:00:00.000Z'));
 
-    expect(DateTimeHelper.expiration(1, 'days', true).toISOString()).toBe(
-      '2026-08-06T07:15:00.000Z',
-    );
+    expect(
+      DateTimeHelper.expiration(1, 'days', { fixed: true, hours: 7, min: 15 }).toISOString(),
+    ).toBe('2026-08-06T07:15:00.000Z');
+  });
+
+  it('should get my date offset', () => {
+    expect(DateTimeHelper.offset('2026-10-30 13:18:38')).toBe('2026-10-30T13:18:38-03:00');
+  });
+
+  it('returns current Chile time', () => {
+    expect(DateTimeHelper.now(Country.CL)).toBe('2026-08-05T14:03:09-04:00');
+  });
+
+  it('converts a UTC instant to Chile summer time (-03:00)', () => {
+    expect(DateTimeHelper.offset('2026-10-30T16:18:38Z')).toBe('2026-10-30T13:18:38-03:00');
   });
 
   it('throws for unsupported ttl units', () => {

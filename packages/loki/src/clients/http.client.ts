@@ -1,8 +1,6 @@
 import { request as http } from 'node:http';
 import { request as https } from 'node:https';
-
 import { GeneralException } from '@silkon/common';
-
 import { HttpOption } from '../types';
 
 export class HttpClient {

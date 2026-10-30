@@ -1,5 +1,4 @@
 import { GeneralException } from '@silkon/common';
-
 import { BaseException, ErrorHelper } from '../../../src';
 
 describe('ErrorHelper', () => {

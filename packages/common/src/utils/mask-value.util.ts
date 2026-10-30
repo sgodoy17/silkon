@@ -1,5 +1,4 @@
 import { Mask } from '../types';
-
 import { maskEmail } from './mask-email.util';
 
 export const maskValue = (value: string, config: Mask): string => {

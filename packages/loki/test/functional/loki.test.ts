@@ -1,6 +1,5 @@
 import { createServer, Server } from 'node:http';
 import { AddressInfo } from 'node:net';
-
 import { HttpClient, LogLevel, loki, LokiService, LokiSetting } from '../../src';
 
 describe('Loki functional tests', () => {

@@ -1,5 +1,4 @@
 import { DateTimeHelper, ErrorHelper } from '@silkon/core';
-
 import { HttpClient } from '../clients';
 import { LokiMapper } from '../mappers';
 import { MaskProcessor } from '../processors';
