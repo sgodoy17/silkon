@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.11.2
+
+### Patch Changes
+
+- [#53](https://github.com/sgodoy17/silkon/pull/53) [`dabbf50`](https://github.com/sgodoy17/silkon/commit/dabbf50dae014c173ccdeec5918b7604f42f9350) Thanks [@sgodoy17](https://github.com/sgodoy17)! - Update offset method not to transform from local to utc locale
+
 ## 2.11.1
 
 ### Patch Changes
