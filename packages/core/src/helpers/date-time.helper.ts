@@ -34,6 +34,7 @@ export class DateTimeHelper {
     ttl: number,
     unit: TtlUnit = 'seconds',
     options: ExpirationOption = {},
+    country: Country = Country.CL,
   ): Date {
     const { fixed = false, hour = 0, min = 0, sec = 0, ms = 0 } = options;
     const result = new Date();
@@ -62,11 +63,17 @@ export class DateTimeHelper {
         throw new Error(`Unsupported TTL unit: ${String(unit)}`);
     }
 
-    if (fixed) {
-      result.setUTCHours(hour, min, sec, ms);
+    if (!fixed) {
+      return result;
     }
 
-    return result;
+    const day = result.toLocaleDateString('en-CA', { timeZone: Timezone[country] });
+    const time = [hour, min, sec].map(n => String(n).padStart(2, '0')).join(':');
+    const fixedDate = new Date(this.offset(`${day} ${time}`, country));
+
+    fixedDate.setUTCMilliseconds(ms);
+
+    return fixedDate;
   }
 
   public static getTimestamp(): string {

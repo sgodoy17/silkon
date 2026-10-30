@@ -45,7 +45,7 @@ export default [
         },
       ],
       'no-console': ['warn'],
-      complexity: ['warn', { max: 15 }],
+      complexity: ['warn', { max: 16 }],
       'simple-import-sort/exports': 'error',
       'unused-imports/no-unused-imports': 'error',
       'unused-imports/no-unused-vars': [
