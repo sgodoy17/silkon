@@ -1,6 +1,6 @@
 export type ExpirationOption = {
   fixed?: boolean;
-  hours?: number;
+  hour?: number;
   min?: number;
   sec?: number;
   ms?: number;

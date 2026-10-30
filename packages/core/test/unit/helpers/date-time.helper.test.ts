@@ -77,7 +77,7 @@ describe('DateTimeHelper', () => {
     jest.setSystemTime(new Date('2026-08-05T20:00:00.000Z'));
 
     expect(
-      DateTimeHelper.expiration(1, 'days', { fixed: true, hours: 7, min: 15 }).toISOString(),
+      DateTimeHelper.expiration(1, 'days', { fixed: true, hour: 7, min: 15 }).toISOString(),
     ).toBe('2026-08-06T07:15:00.000Z');
   });
 

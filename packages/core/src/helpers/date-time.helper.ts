@@ -35,7 +35,7 @@ export class DateTimeHelper {
     unit: TtlUnit = 'seconds',
     options: ExpirationOption = {},
   ): Date {
-    const { fixed = false, hours = 0, min = 0, sec = 0, ms = 0 } = options;
+    const { fixed = false, hour = 0, min = 0, sec = 0, ms = 0 } = options;
     const result = new Date();
 
     switch (unit) {
@@ -63,7 +63,7 @@ export class DateTimeHelper {
     }
 
     if (fixed) {
-      result.setUTCHours(hours, min, sec, ms);
+      result.setUTCHours(hour, min, sec, ms);
     }
 
     return result;
