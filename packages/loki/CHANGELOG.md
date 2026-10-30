@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.11.3
+
+### Patch Changes
+
+- [#55](https://github.com/sgodoy17/silkon/pull/55) [`bd5d06b`](https://github.com/sgodoy17/silkon/commit/bd5d06bc515e1f661e9955681989282ea0f679d2) Thanks [@sgodoy17](https://github.com/sgodoy17)! - Update expiration method
+- Updated dependencies [[`bd5d06b`](https://github.com/sgodoy17/silkon/commit/bd5d06bc515e1f661e9955681989282ea0f679d2)]:
+  - @silkon/common@2.11.3
+  - @silkon/core@2.11.3
+
 ## 2.11.2
 
 ### Patch Changes
