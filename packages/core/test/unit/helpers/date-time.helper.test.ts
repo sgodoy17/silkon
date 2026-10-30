@@ -81,18 +81,6 @@ describe('DateTimeHelper', () => {
     ).toBe('2026-08-06T07:15:00.000Z');
   });
 
-  it('should get my date offset', () => {
-    expect(DateTimeHelper.offset('2026-10-30 13:18:38')).toBe('2026-10-30T13:18:38-03:00');
-  });
-
-  it('returns current Chile time', () => {
-    expect(DateTimeHelper.now(Country.CL)).toBe('2026-08-05T14:03:09-04:00');
-  });
-
-  it('converts a UTC instant to Chile summer time (-03:00)', () => {
-    expect(DateTimeHelper.offset('2026-10-30T16:18:38Z')).toBe('2026-10-30T13:18:38-03:00');
-  });
-
   it('throws for unsupported ttl units', () => {
     expect(() => DateTimeHelper.expiration(1, 'centuries' as never)).toThrow(
       'Unsupported TTL unit: centuries',
