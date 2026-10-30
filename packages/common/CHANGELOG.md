@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.11.0
+
+### Minor Changes
+
+- [#49](https://github.com/sgodoy17/silkon/pull/49) [`0040437`](https://github.com/sgodoy17/silkon/commit/004043791a6e32a700eda79ac4ff214a271e8e2c) Thanks [@sgodoy17](https://github.com/sgodoy17)! - Update expiration date behaviour
+
 ## 2.10.5
 
 ### Patch Changes
