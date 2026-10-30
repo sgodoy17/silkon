@@ -86,4 +86,44 @@ describe('DateTimeHelper', () => {
       'Unsupported TTL unit: centuries',
     );
   });
+
+  it.each([
+    ['2026-05-19 10:42:07', '2026-05-19T10:42:07-04:00'], // winter
+    ['2026-08-05 12:00:30', '2026-08-05T12:00:30-04:00'], // winter
+    ['2026-10-30 13:11:43', '2026-10-30T13:11:43-03:00'], // summer
+    ['2026-09-10 12:00:00', '2026-09-10T12:00:00-03:00'], // just after spring change
+    ['2027-04-10 12:00:00', '2027-04-10T12:00:00-04:00'], // just after fall change
+  ])('adds the T and the offset to %s', (input, expected) => {
+    expect(DateTimeHelper.offset(input)).toBe(expected);
+  });
+
+  it('accepts a T separator and trims the input', () => {
+    expect(DateTimeHelper.offset('  2026-05-19T10:42:07  ')).toBe('2026-05-19T10:42:07-04:00');
+  });
+
+  it('keeps the digits as written and ignores milliseconds and Z', () => {
+    expect(DateTimeHelper.offset('2026-08-05T12:00:30.000Z')).toBe('2026-08-05T12:00:30-04:00');
+  });
+
+  it('does not depend on the system time', () => {
+    jest.useFakeTimers();
+    jest.setSystemTime(new Date('2030-01-01T00:00:00.000Z'));
+
+    expect(DateTimeHelper.offset('2026-10-30 13:11:43')).toBe('2026-10-30T13:11:43-03:00');
+
+    jest.useRealTimers();
+  });
+
+  it('uses Chile as the default country', () => {
+    expect(DateTimeHelper.offset('2026-10-30 13:11:43', Country.CL)).toBe(
+      DateTimeHelper.offset('2026-10-30 13:11:43'),
+    );
+  });
+
+  it.each([[''], ['not a date'], ['2026-05-19'], ['2026-05-19 10:42'], ['2026-13-45 10:00:00']])(
+    'throws for invalid input "%s"',
+    input => {
+      expect(() => DateTimeHelper.offset(input)).toThrow(`Invalid date: ${input}`);
+    },
+  );
 });

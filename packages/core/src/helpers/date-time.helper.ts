@@ -73,34 +73,23 @@ export class DateTimeHelper {
     return String(BigInt(Date.now()) * 1_000_000n + BigInt(process.hrtime()[1]));
   }
 
-  public static offset(input: string | number | Date, country: Country = Country.CL): string {
-    const date = input instanceof Date ? input : new Date(input);
+  public static offset(input: string, country: Country = Country.CL): string {
+    const match = /^(\d{4}-\d{2}-\d{2})[T ](\d{2}:\d{2}:\d{2})/.exec(input.trim());
+    const noon = match ? new Date(`${match[1]}T12:00:00Z`) : undefined;
 
-    if (Number.isNaN(date.getTime())) {
-      throw new Error(`Invalid date: ${String(input)}`);
+    if (!match || !noon || Number.isNaN(noon.getTime())) {
+      throw new Error(`Invalid date: ${input}`);
     }
 
-    const parts = new Intl.DateTimeFormat(Locale[country], {
+    const offset = new Intl.DateTimeFormat(Locale[country], {
       timeZone: Timezone[country],
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      hour12: false,
       timeZoneName: 'longOffset',
-    }).formatToParts(date);
+    })
+      .formatToParts(noon)
+      .find(part => part.type === 'timeZoneName')
+      ?.value.replace('GMT', '');
 
-    const map: Record<string, string> = {};
-
-    for (const part of parts) {
-      map[part.type] = part.value;
-    }
-
-    const offset = map.timeZoneName.replace('GMT', '') || '+00:00';
-
-    return `${map.year}-${map.month}-${map.day}T${map.hour}:${map.minute}:${map.second}${offset}`;
+    return `${match[1]}T${match[2]}${offset || '+00:00'}`;
   }
 
   private static parseInTimeZone(value: string): Date {
