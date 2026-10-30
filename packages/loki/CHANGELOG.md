@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.11.1
+
+### Patch Changes
+
+- [#51](https://github.com/sgodoy17/silkon/pull/51) [`5364801`](https://github.com/sgodoy17/silkon/commit/53648012fad4e602068afa8a7436dfd4ea2a14e5) Thanks [@sgodoy17](https://github.com/sgodoy17)! - Update expiration option name
+- Updated dependencies [[`5364801`](https://github.com/sgodoy17/silkon/commit/53648012fad4e602068afa8a7436dfd4ea2a14e5)]:
+  - @silkon/common@2.11.1
+  - @silkon/core@2.11.1
+
 ## 2.11.0
 
 ### Minor Changes

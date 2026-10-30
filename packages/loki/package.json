@@ -1,6 +1,6 @@
 {
   "name": "@silkon/loki",
-  "version": "2.11.0",
+  "version": "2.11.1",
   "description": "A progressive Node.js framework for building serverless applications with TypeScript. (@loki)",
   "keywords": [
     "framework",
@@ -37,12 +37,12 @@
     "build": "tsc -b tsconfig.build.json"
   },
   "devDependencies": {
-    "@silkon/common": "^2.11.0",
-    "@silkon/core": "^2.11.0"
+    "@silkon/common": "^2.11.1",
+    "@silkon/core": "^2.11.1"
   },
   "peerDependencies": {
-    "@silkon/common": "^2.11.0",
-    "@silkon/core": "^2.11.0"
+    "@silkon/common": "^2.11.1",
+    "@silkon/core": "^2.11.1"
   },
   "engines": {
     "node": ">= 20"
