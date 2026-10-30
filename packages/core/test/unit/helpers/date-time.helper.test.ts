@@ -1,5 +1,4 @@
 import { Country } from '@silkon/common';
-
 import { DateTimeHelper } from '../../../src';
 
 describe('DateTimeHelper', () => {
@@ -75,11 +74,11 @@ describe('DateTimeHelper', () => {
   });
 
   it('should set the fixed date at 7:15', () => {
-    jest.setSystemTime(new Date('2026-08-05T12:00:00.000Z'));
+    jest.setSystemTime(new Date('2026-08-05T20:00:00.000Z'));
 
-    expect(DateTimeHelper.expiration(1, 'days', true).toISOString()).toBe(
-      '2026-08-06T07:15:00.000Z',
-    );
+    expect(
+      DateTimeHelper.expiration(1, 'days', { fixed: true, hours: 7, min: 15 }).toISOString(),
+    ).toBe('2026-08-06T07:15:00.000Z');
   });
 
   it('throws for unsupported ttl units', () => {

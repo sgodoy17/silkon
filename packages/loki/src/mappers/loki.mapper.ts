@@ -1,5 +1,4 @@
 import os from 'os';
-
 import { LogLevel } from '../constants';
 import { Level } from '../types';
 

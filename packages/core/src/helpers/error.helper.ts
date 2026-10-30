@@ -1,5 +1,4 @@
 import { GeneralException, isError } from '@silkon/common';
-
 import { BaseException } from '../exceptions';
 
 export class ErrorHelper {

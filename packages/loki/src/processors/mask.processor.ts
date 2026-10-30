@@ -1,5 +1,4 @@
 import { maskString, maskValue } from '@silkon/common';
-
 import { MaskField, MaskOption } from '../types';
 
 export class MaskProcessor {

@@ -1,5 +1,4 @@
 import { GeneralException, Lifetime } from '@silkon/common';
-
 import { Container, type Provider } from '../../../src';
 
 describe('Container', () => {

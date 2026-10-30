@@ -1,3 +1,4 @@
+export * from './expiration-option.type';
 export * from './provider.type';
 export * from './query-option.type';
 export * from './string-option.type';

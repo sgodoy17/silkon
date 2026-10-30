@@ -1,5 +1,4 @@
 import { GeneralException, Lifetime } from '@silkon/common';
-
 import { Provider } from '../types';
 
 export class Container {

@@ -1,6 +1,5 @@
 import { Country, Locale, Timezone } from '@silkon/common';
-
-import { TtlUnit } from '../types';
+import { ExpirationOption, TtlUnit } from '../types';
 
 export class DateTimeHelper {
   public static now(country: Country = Country.CL): string {
@@ -31,52 +30,47 @@ export class DateTimeHelper {
     return Math.floor((endDate.getTime() - startDate.getTime()) / 1000);
   }
 
-  public static expiration(ttl: number, unit: TtlUnit = 'seconds', fixed: boolean = false): Date {
-    const from = new Date();
+  public static expiration(
+    ttl: number,
+    unit: TtlUnit = 'seconds',
+    options: ExpirationOption = {},
+  ): Date {
+    const { fixed = false, hours = 0, min = 0, sec = 0, ms = 0 } = options;
+    const result = new Date();
 
     switch (unit) {
       case 'seconds':
-        return new Date(from.getTime() + ttl * 1000);
       case 'minutes':
-        return new Date(from.getTime() + ttl * 60 * 1000);
-      case 'hours':
-        return new Date(from.getTime() + ttl * 60 * 60 * 1000);
+      case 'hours': {
+        const multiplier = { seconds: 1000, minutes: 60_000, hours: 3_600_000 }[unit];
+
+        return new Date(result.getTime() + ttl * multiplier);
+      }
       case 'days':
-        from.setUTCDate(from.getUTCDate() + ttl);
+        result.setUTCDate(result.getUTCDate() + ttl);
 
         break;
-      case 'months': {
-        from.setUTCMonth(from.getUTCMonth() + ttl);
+      case 'months':
+        this.addUtcMonths(result, ttl);
 
         break;
-      }
-      case 'years': {
-        from.setUTCFullYear(from.getUTCFullYear() + ttl);
+      case 'years':
+        this.addUtcMonths(result, ttl * 12);
 
         break;
-      }
       default:
         throw new Error(`Unsupported TTL unit: ${String(unit)}`);
     }
 
     if (fixed) {
-      from.setUTCHours(7, 15, 0, 0);
+      result.setUTCHours(hours, min, sec, ms);
     }
 
-    return from;
+    return result;
   }
 
   public static getTimestamp(): string {
     return String(BigInt(Date.now()) * 1_000_000n + BigInt(process.hrtime()[1]));
-  }
-
-  private static parseInTimeZone(value: string): Date {
-    const [date, offset] = value.split('T');
-    const [time] = offset.split('-');
-    const [year, month, day] = date.split('-').map(Number);
-    const [hour, minute, second] = time.split(':').map(Number);
-
-    return new Date(Date.UTC(year, month - 1, day, hour, minute, second));
   }
 
   public static offset(input: string | number | Date, country: Country = Country.CL): string {
@@ -107,5 +101,27 @@ export class DateTimeHelper {
     const offset = map.timeZoneName.replace('GMT', '') || '+00:00';
 
     return `${map.year}-${map.month}-${map.day}T${map.hour}:${map.minute}:${map.second}${offset}`;
+  }
+
+  private static parseInTimeZone(value: string): Date {
+    const [date, offset] = value.split('T');
+    const [time] = offset.split('-');
+    const [year, month, day] = date.split('-').map(Number);
+    const [hour, minute, second] = time.split(':').map(Number);
+
+    return new Date(Date.UTC(year, month - 1, day, hour, minute, second));
+  }
+
+  private static addUtcMonths(date: Date, months: number): void {
+    const day = date.getUTCDate();
+
+    date.setUTCDate(1);
+    date.setUTCMonth(date.getUTCMonth() + months);
+
+    const lastDay = new Date(
+      Date.UTC(date.getUTCFullYear(), date.getUTCMonth() + 1, 0),
+    ).getUTCDate();
+
+    date.setUTCDate(Math.min(day, lastDay));
   }
 }

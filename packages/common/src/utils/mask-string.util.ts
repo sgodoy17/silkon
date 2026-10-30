@@ -1,5 +1,4 @@
 import { Mask } from '../types';
-
 import { maskValue } from './mask-value.util';
 
 export const maskString = (message: string, fields?: Record<string, Mask>): string => {

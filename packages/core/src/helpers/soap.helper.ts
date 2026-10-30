@@ -1,5 +1,4 @@
 import { parseString } from 'xml2js';
-
 import { ObjectHelper } from './object.helper';
 
 export class SoapHelper {
