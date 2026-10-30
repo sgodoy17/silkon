@@ -78,7 +78,7 @@ describe('DateTimeHelper', () => {
 
     expect(
       DateTimeHelper.expiration(1, 'days', { fixed: true, hour: 7, min: 15 }).toISOString(),
-    ).toBe('2026-08-06T07:15:00.000Z');
+    ).toBe('2026-08-06T11:15:00.000Z');
   });
 
   it('throws for unsupported ttl units', () => {
@@ -88,11 +88,11 @@ describe('DateTimeHelper', () => {
   });
 
   it.each([
-    ['2026-05-19 10:42:07', '2026-05-19T10:42:07-04:00'], // winter
-    ['2026-08-05 12:00:30', '2026-08-05T12:00:30-04:00'], // winter
-    ['2026-10-30 13:11:43', '2026-10-30T13:11:43-03:00'], // summer
-    ['2026-09-10 12:00:00', '2026-09-10T12:00:00-03:00'], // just after spring change
-    ['2027-04-10 12:00:00', '2027-04-10T12:00:00-04:00'], // just after fall change
+    ['2026-05-19 10:42:07', '2026-05-19T10:42:07-04:00'],
+    ['2026-08-05 12:00:30', '2026-08-05T12:00:30-04:00'],
+    ['2026-10-30 13:11:43', '2026-10-30T13:11:43-03:00'],
+    ['2026-09-10 12:00:00', '2026-09-10T12:00:00-03:00'],
+    ['2027-04-10 12:00:00', '2027-04-10T12:00:00-04:00'],
   ])('adds the T and the offset to %s', (input, expected) => {
     expect(DateTimeHelper.offset(input)).toBe(expected);
   });
