@@ -1,7 +1,7 @@
 import { DateTimeHelper, ErrorHelper } from '@silkon/core';
 import { HttpClient } from '../clients';
+import { MaskHelper } from '../helpers';
 import { LokiMapper } from '../mappers';
-import { MaskProcessor } from '../processors';
 import { Level, LokiSetting, LokiStream } from '../types';
 
 export class LokiService {
@@ -87,8 +87,8 @@ export class LokiService {
         this.messageId,
         level,
         context,
-        MaskProcessor.mask(message, options),
-        MaskProcessor.mask(params, options),
+        MaskHelper.mask(message, options),
+        MaskHelper.mask(params, options),
       ),
     );
 

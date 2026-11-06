@@ -62,16 +62,16 @@ await logger.flush();
 
 The `LokiSetting` configuration object supports the following options:
 
-| Property | Type | Default | Description |
-| :--- | :--- | :--- | :--- |
-| `url` | `string \| URL` | *(required)* | Loki endpoint URL (e.g. `http://localhost:3100` or `https://loki.example.com`). |
-| `name` | `string` | *(required)* | Service or Lambda name (mapped to label `lambda_name`). |
-| `stage` | `string` | `'development'` | Environment name (mapped to label `env`). |
-| `job` | `string` | `'lambda_logs'` | Job identifier (mapped to label `job`). |
-| `pattern` | `string` | `'default'` | Log pattern identifier (mapped to label `log_pattern`). |
-| `headers` | `Record<string, string>` | `undefined` | Custom HTTP headers sent to Loki (e.g. `Authorization`, `X-Scope-OrgID`). |
-| `mask` | `MaskOption` | `undefined` | Sensitive data masking configuration for messages and parameters. |
-| `timeout` | `number` | `1000` | HTTP request timeout in milliseconds (dynamically extended for payloads > 0.5 MB). |
+| Property  | Type                     | Default         | Description                                                                        |
+| :-------- | :----------------------- | :-------------- | :--------------------------------------------------------------------------------- |
+| `url`     | `string \| URL`          | _(required)_    | Loki endpoint URL (e.g. `http://localhost:3100` or `https://loki.example.com`).    |
+| `name`    | `string`                 | _(required)_    | Service or Lambda name (mapped to label `lambda_name`).                            |
+| `stage`   | `string`                 | `'development'` | Environment name (mapped to label `env`).                                          |
+| `job`     | `string`                 | `'lambda_logs'` | Job identifier (mapped to label `job`).                                            |
+| `pattern` | `string`                 | `'default'`     | Log pattern identifier (mapped to label `log_pattern`).                            |
+| `headers` | `Record<string, string>` | `undefined`     | Custom HTTP headers sent to Loki (e.g. `Authorization`, `X-Scope-OrgID`).          |
+| `mask`    | `MaskOption`             | `undefined`     | Sensitive data masking configuration for messages and parameters.                  |
+| `timeout` | `number`                 | `1000`          | HTTP request timeout in milliseconds (dynamically extended for payloads > 0.5 MB). |
 
 ## Sensitive Data Masking
 
@@ -136,7 +136,7 @@ The package root re-exports:
 - **Clients**: `HttpClient`
 - **Constants**: `LogLevel`
 - **Mappers**: `LokiMapper`
-- **Processors**: `MaskProcessor`
+- **Helpers**: `MaskHelper`
 - **Types**: `LokiSetting`, `LokiStream`, `MaskOption`, `MaskField`
 
 ## Build

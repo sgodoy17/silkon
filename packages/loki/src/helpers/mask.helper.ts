@@ -1,7 +1,7 @@
 import { maskString, maskValue } from '@silkon/common';
 import { MaskField, MaskOption } from '../types';
 
-export class MaskProcessor {
+export class MaskHelper {
   public static mask<T>(value: T, options: MaskOption): T {
     if (!options?.enabled || !options.fields) {
       return value;

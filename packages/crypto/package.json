@@ -1,0 +1,52 @@
+{
+  "name": "@silkon/crypto",
+  "version": "2.11.3",
+  "description": "A progressive Node.js framework for building serverless applications with TypeScript. (@crypto)",
+  "keywords": [
+    "framework",
+    "serverless",
+    "node",
+    "typescript",
+    "crypto"
+  ],
+  "homepage": "https://github.com/sgodoy17/silkon#readme",
+  "bugs": {
+    "url": "https://github.com/sgodoy17/silkon/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sgodoy17/silkon.git",
+    "directory": "packages/crypto"
+  },
+  "license": "MIT",
+  "author": "Simon Godoy",
+  "type": "commonjs",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js"
+    }
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -b tsconfig.build.json"
+  },
+  "devDependencies": {
+    "@silkon/common": "^2.11.3"
+  },
+  "peerDependencies": {
+    "@silkon/common": "^2.11.3"
+  },
+  "engines": {
+    "node": ">= 20"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}
