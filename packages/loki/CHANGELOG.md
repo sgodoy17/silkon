@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.13.1
+
+### Patch Changes
+
+- [#63](https://github.com/sgodoy17/silkon/pull/63) [`92880ce`](https://github.com/sgodoy17/silkon/commit/92880cebdcd8aa1d871fef8e7eb07112b3b756a2) Thanks [@sgodoy17](https://github.com/sgodoy17)! - Set input as optional on logger port
+- Updated dependencies [[`92880ce`](https://github.com/sgodoy17/silkon/commit/92880cebdcd8aa1d871fef8e7eb07112b3b756a2)]:
+  - @silkon/common@2.13.1
+  - @silkon/core@2.13.1
+  - @silkon/crypto@2.13.1
+
 ## 2.13.0
 
 ### Minor Changes
