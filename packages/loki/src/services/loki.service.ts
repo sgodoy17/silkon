@@ -1,5 +1,6 @@
+import { Input } from '@silkon/common';
 import { DateTimeHelper, ErrorHelper } from '@silkon/core';
-import { EnvelopeService, Input } from '@silkon/crypto';
+import { EnvelopeService } from '@silkon/crypto';
 import { HttpClient } from '../clients';
 import { InputHelper, MaskHelper } from '../helpers';
 import { LokiMapper } from '../mappers';
