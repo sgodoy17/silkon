@@ -1,7 +1,6 @@
-import { GeneralException } from '@silkon/common';
+import { GeneralException, Input } from '@silkon/common';
 import { isString } from '@silkon/common';
 import { DataType } from '../constants';
-import { Input } from '../types';
 import { CryptoService } from './crypto.service';
 import { ZipService } from './zip.service';
 
