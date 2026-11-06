@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.13.4
+
+### Patch Changes
+
+- [#69](https://github.com/sgodoy17/silkon/pull/69) [`5318eb3`](https://github.com/sgodoy17/silkon/commit/5318eb31a51d5f89c9ac4880f8a4f6c51038ec3e) Thanks [@sgodoy17](https://github.com/sgodoy17)! - Remove input type from crypto
+- Updated dependencies [[`5318eb3`](https://github.com/sgodoy17/silkon/commit/5318eb31a51d5f89c9ac4880f8a4f6c51038ec3e)]:
+  - @silkon/common@2.13.4
+  - @silkon/core@2.13.4
+  - @silkon/crypto@2.13.4
+
 ## 2.13.3
 
 ### Patch Changes
