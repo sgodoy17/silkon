@@ -9,7 +9,7 @@ export class LokiMapper {
     level: Level,
     context: string,
     message: string,
-    params?: unknown[],
+    payload?: unknown,
   ): unknown {
     return {
       level: LogLevel[level],
@@ -20,7 +20,7 @@ export class LokiMapper {
       hostname: os.hostname(),
       context,
       msg: message,
-      ...(params?.length ? { params } : {}),
+      payload,
     };
   }
 }

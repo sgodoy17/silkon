@@ -38,11 +38,13 @@
   },
   "devDependencies": {
     "@silkon/common": "^2.12.1",
-    "@silkon/core": "^2.12.1"
+    "@silkon/core": "^2.12.1",
+    "@silkon/crypto": "^2.12.1"
   },
   "peerDependencies": {
     "@silkon/common": "^2.12.1",
-    "@silkon/core": "^2.12.1"
+    "@silkon/core": "^2.12.1",
+    "@silkon/crypto": "^2.12.1"
   },
   "engines": {
     "node": ">= 20"
