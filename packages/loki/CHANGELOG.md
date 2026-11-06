@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.13.2
+
+### Patch Changes
+
+- [#65](https://github.com/sgodoy17/silkon/pull/65) [`08ed090`](https://github.com/sgodoy17/silkon/commit/08ed09080dbaa24e66d68dd8675d33a1eb3e064d) Thanks [@sgodoy17](https://github.com/sgodoy17)! - Add context to logger port
+- Updated dependencies [[`08ed090`](https://github.com/sgodoy17/silkon/commit/08ed09080dbaa24e66d68dd8675d33a1eb3e064d)]:
+  - @silkon/common@2.13.2
+  - @silkon/core@2.13.2
+  - @silkon/crypto@2.13.2
+
 ## 2.13.1
 
 ### Patch Changes
