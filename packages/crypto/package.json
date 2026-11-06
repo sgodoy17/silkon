@@ -1,6 +1,6 @@
 {
   "name": "@silkon/crypto",
-  "version": "2.12.0",
+  "version": "2.12.1",
   "description": "A progressive Node.js framework for building serverless applications with TypeScript. (@crypto)",
   "keywords": [
     "framework",
@@ -37,10 +37,10 @@
     "build": "tsc -b tsconfig.build.json"
   },
   "devDependencies": {
-    "@silkon/common": "^2.12.0"
+    "@silkon/common": "^2.12.1"
   },
   "peerDependencies": {
-    "@silkon/common": "^2.12.0"
+    "@silkon/common": "^2.12.1"
   },
   "engines": {
     "node": ">= 20"

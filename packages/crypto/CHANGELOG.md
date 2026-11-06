@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.12.1
+
+### Patch Changes
+
+- [#59](https://github.com/sgodoy17/silkon/pull/59) [`e6e41f0`](https://github.com/sgodoy17/silkon/commit/e6e41f002f0aff67d01a686119113fea3230db22) Thanks [@sgodoy17](https://github.com/sgodoy17)! - Move envelope service to sync
+- Updated dependencies [[`e6e41f0`](https://github.com/sgodoy17/silkon/commit/e6e41f002f0aff67d01a686119113fea3230db22)]:
+  - @silkon/common@2.12.1
+
 ## 2.12.0
 
 ### Minor Changes
