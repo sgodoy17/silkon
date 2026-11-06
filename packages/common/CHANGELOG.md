@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.13.1
+
+### Patch Changes
+
+- [#63](https://github.com/sgodoy17/silkon/pull/63) [`92880ce`](https://github.com/sgodoy17/silkon/commit/92880cebdcd8aa1d871fef8e7eb07112b3b756a2) Thanks [@sgodoy17](https://github.com/sgodoy17)! - Set input as optional on logger port
+
 ## 2.13.0
 
 ### Minor Changes
