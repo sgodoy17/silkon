@@ -4,7 +4,7 @@ import { unzip, zip } from '../utils';
 export class ZipService {
   constructor(private readonly maxSize: number = 100 * 1024 * 1024) {}
 
-  public compress(data: Buffer): Promise<Buffer> {
+  public compress(data: Buffer): Buffer {
     return zip(data, {
       params: {
         [constants.BROTLI_PARAM_QUALITY]: 11,
@@ -13,7 +13,7 @@ export class ZipService {
     });
   }
 
-  public decompress(data: Buffer): Promise<Buffer> {
+  public decompress(data: Buffer): Buffer {
     return unzip(data, { maxOutputLength: this.maxSize });
   }
 }
