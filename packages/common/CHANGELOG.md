@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.13.3
+
+### Patch Changes
+
+- [#67](https://github.com/sgodoy17/silkon/pull/67) [`8ff0bd8`](https://github.com/sgodoy17/silkon/commit/8ff0bd897b026ea57fa62beb533a43f43a4f1d72) Thanks [@sgodoy17](https://github.com/sgodoy17)! - Add input type to common project
+
 ## 2.13.2
 
 ### Patch Changes
