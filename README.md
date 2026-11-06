@@ -4,7 +4,10 @@ Silkon is a TypeScript monorepo for building serverless Node.js applications.
 
 ## Packages
 
-- `@silkon/common`: shared runtime guards, shared types, and base exceptions.
+- `@silkon/common`: shared runtime helpers, types, and error classes.
+- `@silkon/core`: shared runtime DI container, provider interfaces, ports, helpers, exceptions, and core types.
+- `@silkon/crypto`: shared runtime crypto cipher implementation.
+- `@silkon/loki`: shared runtime Grafana Loki implementation.
 
 ## Development
 
@@ -14,6 +17,15 @@ Requirements:
 - npm
 
 Common workspace commands:
+
+### new packages
+
+```bash
+npm login
+npm publish --access public --provenance false
+```
+
+### everything else
 
 ```bash
 npm install
@@ -29,6 +41,7 @@ cd packages/{package-name} && npm run build
 
 - `packages/common`: shared code published as `@silkon/common`
 - `packages/core`: shared code published as `@silkon/core`
+- `packages/crypto`: shared code published as `@silkon/crypto`
 - `packages/loki`: shared code published as `@silkon/loki`
 - `tsconfig*.json`: TypeScript project references for the workspace
 - `jest.config.js`: test runner configuration

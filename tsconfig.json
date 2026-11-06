@@ -31,6 +31,7 @@
     "paths": {
       "@silkon/common": ["./packages/common"],
       "@silkon/core": ["./packages/core"],
+      "@silkon/crypto": ["./packages/crypto"],
       "@silkon/loki": ["./packages/loki"]
     }
   }
