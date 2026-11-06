@@ -1,4 +1,3 @@
-import { promisify } from 'node:util';
-import { brotliCompress } from 'node:zlib';
+import { brotliCompressSync } from 'node:zlib';
 
-export const zip = promisify(brotliCompress);
+export const zip = brotliCompressSync;

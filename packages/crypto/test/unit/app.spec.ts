@@ -14,9 +14,9 @@ describe('EnvelopeService', () => {
   ];
 
   describe.each([true, false])('with compress = %s', compress => {
-    it.each(cases)('should round-trip a %s', async (_name, value) => {
-      const encrypted = await envelope.encrypt(value, compress);
-      const decrypted = await envelope.decrypt(encrypted);
+    it.each(cases)('should round-trip a %s', (_name, value) => {
+      const encrypted = envelope.encrypt(value, compress);
+      const decrypted = envelope.decrypt(encrypted);
 
       expect(decrypted).toEqual(value);
     });

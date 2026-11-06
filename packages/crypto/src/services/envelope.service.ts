@@ -19,9 +19,9 @@ export class EnvelopeService {
     this.zipService = new ZipService();
   }
 
-  public async encrypt(input: Input, compress = this.compress): Promise<string> {
+  public encrypt(input: Input, compress = this.compress): string {
     const { kind, bytes } = this.serialize(input);
-    const zipped = compress ? await this.zipService.compress(bytes) : undefined;
+    const zipped = compress ? this.zipService.compress(bytes) : undefined;
     const useZip = zipped !== undefined && zipped.length < bytes.length;
     const body = useZip ? zipped : bytes;
     const header = useZip ? kind | EnvelopeService.compressed : kind;
@@ -31,12 +31,11 @@ export class EnvelopeService {
       .toString('base64');
   }
 
-  public async decrypt<T = unknown>(input: string): Promise<T> {
+  public decrypt<T = unknown>(input: string): T {
     const framed = this.cryptoService.decrypt(Buffer.from(input, 'base64'));
     const header = framed[0];
     const body = framed.subarray(1);
-    const bytes =
-      header & EnvelopeService.compressed ? await this.zipService.decompress(body) : body;
+    const bytes = header & EnvelopeService.compressed ? this.zipService.decompress(body) : body;
 
     switch (header & EnvelopeService.kind) {
       case DataType.STRING:
