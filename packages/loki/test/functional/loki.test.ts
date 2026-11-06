@@ -1,6 +1,7 @@
 import { createServer, Server } from 'node:http';
 import { AddressInfo } from 'node:net';
-import { HttpClient, LogLevel, loki, LokiService, LokiSetting } from '../../src';
+import { EnvelopeService } from '@silkon/crypto';
+import { HttpClient, InputHelper, LogLevel, loki, LokiService, LokiSetting } from '../../src';
 
 describe('Loki functional tests', () => {
   let server: Server;
@@ -123,13 +124,13 @@ describe('Loki functional tests', () => {
       level: number;
       context: string;
       msg: string;
-      params: [{ orderId: number }];
+      payload: { orderId: number };
     };
 
     expect(infoLog.level).toBe(LogLevel.info);
     expect(infoLog.context).toBe('OrderController');
     expect(infoLog.msg).toBe('Order created successfully');
-    expect(infoLog.params).toEqual([{ orderId: 1001 }]);
+    expect(infoLog.payload).toEqual({ orderId: 1001 });
 
     const warnLog = JSON.parse(stdoutLogs[1].trim()) as { level: number; msg: string };
 
@@ -234,7 +235,7 @@ describe('Loki functional tests', () => {
 
     for (const item of payload.streams) {
       expect(item.stream.job).toBe('lambda_logs');
-      expect(item.stream.env).toBe('development');
+      expect(item.stream.env).toBe('local');
       expect(item.stream.log_pattern).toBe('default');
       expect(item.stream.lambda_name).toBe('default-service');
     }
@@ -268,7 +269,7 @@ describe('Loki functional tests', () => {
     expect(receivedRequests).toHaveLength(0);
   });
 
-  it('applies data masking to messages and parameters when mask options are configured', async () => {
+  it('applies data masking to messages and payload when mask options are configured', async () => {
     const logger = loki({
       url: serverUrl,
       name: 'masked-service',
@@ -281,34 +282,32 @@ describe('Loki functional tests', () => {
       },
     });
 
-    logger.info(
-      'AuthContext',
-      'User email: user@example.com logged in',
-      {
-        email: 'user@example.com',
-        token: 'secret-token-123',
-        meta: { unmasked: 'value', email: 'nested@example.com' },
-      },
-      ['array-item', { email: 'array-nested@example.com' }],
-    );
+    logger.info('AuthContext', 'User email: user@example.com logged in', {
+      email: 'user@example.com',
+      token: 'secret-token-123',
+      meta: { unmasked: 'value', email: 'nested@example.com' },
+      list: ['array-item', { email: 'array-nested@example.com' }],
+    });
 
     expect(stdoutLogs).toHaveLength(1);
 
     const logged = JSON.parse(stdoutLogs[0].trim()) as {
       msg: string;
-      params: [
-        { email: string; token: string; meta: { unmasked: string; email: string } },
-        [string, { email: string }],
-      ];
+      payload: {
+        email: string;
+        token: string;
+        meta: { unmasked: string; email: string };
+        list: [string, { email: string }];
+      };
     };
 
     expect(logged.msg).toBe('User email: u***@example.com logged in');
-    expect(logged.params[0].email).toBe('u***@example.com');
-    expect(logged.params[0].token).toBe('se************23');
-    expect(logged.params[0].meta.unmasked).toBe('value');
-    expect(logged.params[0].meta.email).toBe('n*****@example.com');
-    expect(logged.params[1][0]).toBe('array-item');
-    expect(logged.params[1][1].email).toBe('a***********@example.com');
+    expect(logged.payload.email).toBe('u***@example.com');
+    expect(logged.payload.token).toBe('se************23');
+    expect(logged.payload.meta.unmasked).toBe('value');
+    expect(logged.payload.meta.email).toBe('n*****@example.com');
+    expect(logged.payload.list[0]).toBe('array-item');
+    expect(logged.payload.list[1].email).toBe('a***********@example.com');
 
     await logger.flush();
 
@@ -321,7 +320,7 @@ describe('Loki functional tests', () => {
     const streamLog = JSON.parse(payload.streams[0].values[0][1]) as typeof logged;
 
     expect(streamLog.msg).toBe('User email: u***@example.com logged in');
-    expect(streamLog.params[0].email).toBe('u***@example.com');
+    expect(streamLog.payload.email).toBe('u***@example.com');
   });
 
   it('does not mask data when mask option is disabled', async () => {
@@ -344,11 +343,11 @@ describe('Loki functional tests', () => {
 
     const logged = JSON.parse(stdoutLogs[0].trim()) as {
       msg: string;
-      params: [{ email: string }];
+      payload: { email: string };
     };
 
     expect(logged.msg).toBe('User user@example.com logged in');
-    expect(logged.params[0].email).toBe('user@example.com');
+    expect(logged.payload.email).toBe('user@example.com');
 
     await logger.flush();
 
@@ -444,6 +443,7 @@ describe('Loki functional tests', () => {
 
     expect(receivedRequests).toHaveLength(1);
     expect(receivedRequests[0].headers['content-type']).toBe('application/json');
+
     const contentLength = Number(receivedRequests[0].headers['content-length']);
 
     expect(contentLength).toBeGreaterThan(500 * 1024);
@@ -461,7 +461,7 @@ describe('Loki functional tests', () => {
       },
     });
 
-    logger.info('EdgeContext', 'Status update', null, undefined, 42, true, false, {
+    logger.info('EdgeContext', 'Status update', {
       token: 'secret',
       count: 10,
       active: true,
@@ -471,23 +471,13 @@ describe('Loki functional tests', () => {
     expect(stdoutLogs).toHaveLength(1);
 
     const logged = JSON.parse(stdoutLogs[0].trim()) as {
-      params: [
-        null,
-        null,
-        number,
-        boolean,
-        boolean,
-        { token: string; count: number; active: boolean; absent: null },
-      ];
+      payload: { token: string; count: number; active: boolean; absent: null };
     };
 
-    expect(logged.params[2]).toBe(42);
-    expect(logged.params[3]).toBe(true);
-    expect(logged.params[4]).toBe(false);
-    expect(logged.params[5].token).toBe('s****t');
-    expect(logged.params[5].count).toBe(10);
-    expect(logged.params[5].active).toBe(true);
-    expect(logged.params[5].absent).toBeNull();
+    expect(logged.payload.token).toBe('s****t');
+    expect(logged.payload.count).toBe(10);
+    expect(logged.payload.active).toBe(true);
+    expect(logged.payload.absent).toBeNull();
   });
 
   it('allows injecting a custom HttpClient instance', async () => {
@@ -512,6 +502,7 @@ describe('Loki functional tests', () => {
   it('sets requestId via setId and attaches rid to each log entry and Loki stream value', async () => {
     const requestId = 'req-trace-uuid-12345';
     const messageId = 'msg-trace-uuid-12345';
+
     const logger = loki({
       url: serverUrl,
       name: 'request-id-service',
@@ -520,7 +511,6 @@ describe('Loki functional tests', () => {
 
     logger.setRequestId(requestId);
     logger.setMessageId(messageId);
-
     logger.info('OrderController', 'Order placed', { orderId: 456 });
     logger.warn('InventoryController', 'Low stock', { productId: 789 });
 
@@ -561,5 +551,102 @@ describe('Loki functional tests', () => {
         expect(parsedValue.rid).toBe(requestId);
       }
     }
+  });
+
+  it('encrypts payload using EnvelopeService and default key based on stage, name, and requestId', async () => {
+    const requestId = 'req-encrypt-123';
+
+    const logger = loki({
+      url: serverUrl,
+      name: 'secure-service',
+      stage: 'staging',
+      input: {
+        encrypt: true,
+      },
+    });
+
+    logger.clean().setRequestId(requestId);
+
+    const inputData = { user: 'alice', secret: 42, nested: { enabled: true } };
+
+    logger.info('SecureContext', 'Encrypted action', inputData);
+
+    expect(stdoutLogs).toHaveLength(1);
+
+    const logged = JSON.parse(stdoutLogs[0].trim()) as {
+      msg: string;
+      payload: string;
+    };
+
+    expect(logged.msg).toBe('Encrypted action');
+    expect(typeof logged.payload).toBe('string');
+    expect(logged.payload).not.toEqual(inputData);
+
+    const key = InputHelper.key('', 'secure-service', requestId, 'staging');
+    const envelope = new EnvelopeService(key);
+    const decrypted = envelope.decrypt(logged.payload);
+
+    expect(decrypted).toEqual(inputData);
+
+    await logger.flush();
+
+    expect(receivedRequests).toHaveLength(1);
+
+    const payload = JSON.parse(receivedRequests[0].body) as {
+      streams: { values: [string, string][] }[];
+    };
+
+    const streamLog = JSON.parse(payload.streams[0].values[0][1]) as typeof logged;
+
+    expect(envelope.decrypt(streamLog.payload)).toEqual(inputData);
+  });
+
+  it('encrypts payload using custom key when input.key is specified', () => {
+    const requestId = 'req-custom-key-456';
+    const customKey = 'my-custom-secret-key';
+    const logger = loki({
+      url: serverUrl,
+      name: 'custom-key-service',
+      stage: 'production',
+      input: {
+        encrypt: true,
+        key: customKey,
+      },
+    });
+
+    logger.setRequestId(requestId);
+
+    const inputData = { token: 'auth-token-xyz', active: true };
+
+    logger.info('CustomKeyContext', 'Custom key action', inputData);
+
+    expect(stdoutLogs).toHaveLength(1);
+
+    const logged = JSON.parse(stdoutLogs[0].trim()) as {
+      msg: string;
+      payload: string;
+    };
+
+    expect(typeof logged.payload).toBe('string');
+
+    const key = InputHelper.key(customKey, 'custom-key-service', requestId, 'production');
+    const envelope = new EnvelopeService(key);
+    const decrypted = envelope.decrypt(logged.payload);
+
+    expect(decrypted).toEqual(inputData);
+  });
+
+  it('generates base64 key correctly via InputHelper.key helper', () => {
+    const withCustomKey = InputHelper.key('custom', 'svc', 'req-1', 'prod');
+
+    expect(withCustomKey).toBe(Buffer.from('custom-svc-req-1').toString('base64'));
+
+    const withStageFallback = InputHelper.key('', 'svc', 'req-2', 'prod');
+
+    expect(withStageFallback).toBe(Buffer.from('loki-prod-svc-req-2').toString('base64'));
+
+    const withDefaultLocalStage = InputHelper.key('', 'svc', 'req-3', undefined);
+
+    expect(withDefaultLocalStage).toBe(Buffer.from('loki-local-svc-req-3').toString('base64'));
   });
 });

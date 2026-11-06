@@ -1,6 +1,7 @@
 import { DateTimeHelper, ErrorHelper } from '@silkon/core';
+import { EnvelopeService, Input } from '@silkon/crypto';
 import { HttpClient } from '../clients';
-import { MaskHelper } from '../helpers';
+import { InputHelper, MaskHelper } from '../helpers';
 import { LokiMapper } from '../mappers';
 import { Level, LokiSetting, LokiStream } from '../types';
 
@@ -8,42 +9,55 @@ export class LokiService {
   private requestId: string;
   private messageId: string;
   private streams: Record<string, LokiStream> = {};
+  private envelopeService: EnvelopeService;
 
   constructor(
     private readonly config: LokiSetting,
     private readonly httpClient: HttpClient = new HttpClient(),
   ) {}
 
-  public info(context: string, message: string, ...optionalParams: unknown[]): void {
-    this.entry('info', context, message, optionalParams);
+  public info(context: string, message: string, input?: Input): void {
+    this.entry('info', context, message, input);
   }
 
-  public error(context: string, message: string, ...optionalParams: unknown[]): void {
-    this.entry('error', context, message, optionalParams);
+  public error(context: string, message: string, input?: Input): void {
+    this.entry('error', context, message, input);
   }
 
-  public warn(context: string, message: string, ...optionalParams: unknown[]): void {
-    this.entry('warn', context, message, optionalParams);
+  public warn(context: string, message: string, input?: Input): void {
+    this.entry('warn', context, message, input);
   }
 
-  public debug(context: string, message: string, ...optionalParams: unknown[]): void {
-    this.entry('debug', context, message, optionalParams);
+  public debug(context: string, message: string, input?: Input): void {
+    this.entry('debug', context, message, input);
   }
 
-  public trace(context: string, message: string, ...optionalParams: unknown[]): void {
-    this.entry('trace', context, message, optionalParams);
+  public trace(context: string, message: string, input?: Input): void {
+    this.entry('trace', context, message, input);
   }
 
-  public fatal(context: string, message: string, ...optionalParams: unknown[]): void {
-    this.entry('fatal', context, message, optionalParams);
+  public fatal(context: string, message: string, input?: Input): void {
+    this.entry('fatal', context, message, input);
   }
 
-  public setRequestId(requestId: string): void {
+  public clean(): LokiService {
+    this.requestId = undefined;
+    this.messageId = undefined;
+    this.envelopeService = undefined;
+
+    return this;
+  }
+
+  public setRequestId(requestId: string): LokiService {
     this.requestId = requestId;
+
+    return this;
   }
 
-  public setMessageId(messageId: string): void {
+  public setMessageId(messageId: string): LokiService {
     this.messageId = messageId;
+
+    return this;
   }
 
   public async flush(): Promise<void> {
@@ -78,35 +92,53 @@ export class LokiService {
     }
   }
 
-  private entry(level: Level, context: string, message: string, params?: unknown[]): void {
-    const options = this.config?.mask;
+  private entry(level: Level, context: string, message: string, input?: Input): void {
+    const { config, requestId } = this;
+    const stage = config.stage;
+    const payload = this.protect(input);
 
     const content = JSON.stringify(
       LokiMapper.map(
-        this.requestId,
+        requestId,
         this.messageId,
         level,
         context,
-        MaskHelper.mask(message, options),
-        MaskHelper.mask(params, options),
+        MaskHelper.mask(message, config.mask),
+        payload,
       ),
     );
 
     process.stdout.write(`${content}\n`);
 
-    if (!this.streams[level]) {
-      this.streams[level] = {
-        stream: {
-          job: this.config.job ?? 'lambda_logs',
-          env: this.config.stage ?? 'development',
-          lambda_name: this.config.name,
-          level,
-          log_pattern: this.config.pattern ?? 'default',
-        },
-        values: [],
-      };
-    }
+    this.streams[level] ??= {
+      stream: {
+        job: config.job ?? 'lambda_logs',
+        env: stage ?? 'local',
+        lambda_name: config.name,
+        level,
+        log_pattern: config.pattern ?? 'default',
+      },
+      values: [],
+    };
 
     this.streams[level].values.push([DateTimeHelper.getTimestamp(), content]);
+  }
+
+  private protect(input?: Input): Input | undefined {
+    if (input === undefined) {
+      return undefined;
+    }
+
+    const options = this.config.input;
+
+    if (!options?.encrypt) {
+      return MaskHelper.mask(input, this.config.mask);
+    }
+
+    this.envelopeService ??= new EnvelopeService(
+      InputHelper.key(options.key, this.config.name, this.requestId, this.config.stage),
+    );
+
+    return this.envelopeService.encrypt(input);
   }
 }
