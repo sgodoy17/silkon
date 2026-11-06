@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.13.0
+
+### Minor Changes
+
+- [#61](https://github.com/sgodoy17/silkon/pull/61) [`7f235f9`](https://github.com/sgodoy17/silkon/commit/7f235f9f58c74fe6a9118d1380045598e2c2d259) Thanks [@sgodoy17](https://github.com/sgodoy17)! - Add crypto methods to loki service
+
+### Patch Changes
+
+- Updated dependencies [[`7f235f9`](https://github.com/sgodoy17/silkon/commit/7f235f9f58c74fe6a9118d1380045598e2c2d259)]:
+  - @silkon/common@2.13.0
+  - @silkon/core@2.13.0
+  - @silkon/crypto@2.13.0
+
 ## 2.12.1
 
 ### Patch Changes
